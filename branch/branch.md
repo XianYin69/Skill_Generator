@@ -16,4 +16,4 @@
 
 1. 每个分支目录内放一份 10 行以内的「目标 / 假设 / 结论」速记。
 2. 决定采纳或放弃分支时，同步在 [`SKILL.md`](../SKILL.md) 子模块索引加注。
-3. 分支最终并入主流程前必须通过 [`scripts/check-links.py`](../scripts/README.md) 校验。
+3. 分支最终并入主流程前必须通过 [`scripts/check-links.py`](../scripts/check-links.py) 校验。

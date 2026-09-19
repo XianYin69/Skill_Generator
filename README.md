@@ -5,12 +5,12 @@ Agent 级 Skill 生成工具。用于自动生成与迭代 Agent Skill。
 ## 结构
 
 - [`SKILL.md`](SKILL.md)：入口，子模块索引与阅读顺序。
-- [`references/`](references/)：知识库（文档、素材、流程图）。
-- [`scripts/`](scripts/)：脚本库（校验、迁移、生成工具）。
-- [`branch/`](branch/)：分支库（实验性方案、备选路径）。
-- [`update/`](update/)：自更新组件（升级触发、回滚逻辑）。
-- [`resistance/`](resistance/)：约束库 / 兜底（红线、降级策略）。
-- [`flowchart/`](flowchart/)：项目流程图链表 JSON（源于 `Skill_Generator_stream.html`）。
+- [references](references/references.md)：知识库（文档、素材、流程图）。
+- [scripts](scripts/scripts.md)：脚本库（校验、迁移、生成工具）。
+- [branch](branch/branch.md)：分支库（实验性方案、备选路径）。
+- [update](update/update.md)：自更新组件（升级触发、回滚逻辑）。
+- [resistance](resistance/resistance.md)：约束库 / 兜底（红线、降级策略）。
+- [flowchart](flowchart/index.json)：项目流程图链表 JSON（源于 `Skill_Generator_stream.html`）。
 
 ## 约束
 

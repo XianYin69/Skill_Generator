@@ -11,10 +11,10 @@
 ## 当前内容
 
 - [`flowchart/`](../flowchart/)：整个 Skill_Generator 流程图的链表 JSON，由 `Skill_Generator_stream.html` 转换而来。入口 [`flowchart/index.json`](../flowchart/index.json)。
-- [`流程/`](流程/)：SKILL.md 拆分的各阶段执行细则，含初始化及 01–10 共 11 个独立步骤文件夹（入口见 [`流程/流程.md`](流程/流程.md)）。
+- [`流程/`](流程/)：SKILL.md 拆分的各阶段执行细则，含初始化及创建、修改等独立流程文件夹（入口见 [`流程/流程.md`](流程/流程.md)）。
 
 ## 编辑约定
 
-1. 新建子目录或大文件前，先在本 README 登记一行。
-2. 删除或重命名现有内容后同步更新本 README。
+1. 新建子目录或大文件前，先在本文件登记一行。
+2. 删除或重命名现有内容后同步更新本文件。
 3. 本目录不参与 `scripts/check-links.py` 的逻辑校验，但请确保文件名在 `SKILL.md` 索引里能找到。
