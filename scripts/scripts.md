@@ -11,8 +11,8 @@
 ## 当前内容
 
 - [`check-links.py`](check-links.py)：悬空链接校验器（rule_edit.md 要求）。
-- [`建立tmp.ps1`](建立tmp.ps1)：建立 tmp 目录及初始结构（Windows）。
-- [`建立tmp.sh`](建立tmp.sh)：建立 tmp 目录及初始结构（macOS / Linux）。
+- [`create-tmp.ps1`](create-tmp.ps1)：建立 tmp 目录及初始结构（Windows）。
+- [`create-tmp.sh`](create-tmp.sh)：建立 tmp 目录及初始结构（macOS / Linux）。
 
 ## 运行约定
 

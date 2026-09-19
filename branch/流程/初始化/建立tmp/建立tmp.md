@@ -18,8 +18,8 @@
 
 ## 系统指令
 
-- **Windows（PowerShell）**：`pwsh ./scripts/建立tmp.ps1`
-- **macOS / Linux（bash）**：`bash ./scripts/建立tmp.sh`
+- **Windows（PowerShell）**：`pwsh ./scripts/create-tmp.ps1`
+- **macOS / Linux（bash）**：`bash ./scripts/create-tmp.sh`
 
 脚本核心操作：
 
@@ -30,8 +30,8 @@
 
 ## 脚本文件
 
-- [`建立tmp.ps1`](../../../../scripts/建立tmp.ps1)（Windows）
-- [`建立tmp.sh`](../../../../scripts/建立tmp.sh)（macOS / Linux）
+- [`create-tmp.ps1`](../../../../scripts/create-tmp.ps1)（Windows）
+- [`create-tmp.sh`](../../../../scripts/create-tmp.sh)（macOS / Linux）
 
 ## 下一步
 

@@ -23,4 +23,5 @@ All notable changes to this project will be documented in this file.
 - 目录归属修正：`references/流程/` → `branch/流程/`（流程属于分支库）；`references/约束部分/` → `resistance/约束部分/`（约束属于约束库）；同步更新 rule_edit.md、SKILL.md、references.md、branch.md、resistance.md 等交叉引用。
 - `branch/流程/初始化/建立tmp/`：新增 `建立tmp.ps1`（Windows）与 `建立tmp.sh`（macOS/Linux）脚本，用于建立 `tmp/` 目录及初始结构（`.git`、`.gitignore`、`rule_edit.md`、`branch/`、`flowchart/`、`references/`、`resistance/`、`update/`）；`建立tmp.md` 补充各系统指令与目录结构说明。
 - 脚本归位：`建立tmp.ps1`、`建立tmp.sh` 移至 `scripts/`（脚本库）；`建立tmp.md` 与 `scripts.md` 同步更新引用。
+- 脚本英文命名：`scripts/建立tmp.ps1` → `create-tmp.ps1`、`scripts/建立tmp.sh` → `create-tmp.sh`（依 rule_edit.md「脚本使用英文名称 + 扩展名」）；同步更新 `scripts.md`、`建立tmp.md` 引用。
 
