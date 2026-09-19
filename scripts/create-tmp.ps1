@@ -1,7 +1,7 @@
 ﻿# create-tmp: 建立 tmp 目录及初始结构（Windows PowerShell）
 param([string]$Target = ".")
 $tmp = Join-Path $Target "tmp"
-$folders = @("branch", "flowchart", "references", "resistance", "update")
+$folders = @("agent", "branch", "flowchart", "references", "resistance", "update")
 New-Item -ItemType Directory -Path $tmp -Force | Out-Null
 foreach ($f in $folders) { New-Item -ItemType Directory -Path (Join-Path $tmp $f) -Force | Out-Null }
 $ruleEdit = @'

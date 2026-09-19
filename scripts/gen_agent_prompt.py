@@ -1,44 +1,35 @@
-"""gen_agent_prompt.py — 收尾后在目标 skill 根生成简要 AGENTS.md（agent 工具提示词）。
-用途：Skill_Generator 收尾完成、tmp 释放到目标 skill 后，自动产出一份简明提示词，
-     让加载该 skill 的 agent 快速知道「能做什么、怎么用工具」。
+"""gen_agent_prompt.py — 生成四种主流 agent/CLI 工具格式提示词（存于 agent/）。
 命令：python gen_agent_prompt.py --target <目标skill目录> [--name <skill名>]
-约束：内容简要；用途优先取自目标 SKILL.md 首段；不写入敏感信息。
+格式：CLAUDE.md（Claude Code）、.cursorrules（Cursor/Windsurf）、
+      instructions.md（OpenAI Assistants）、agent_prompt.md（通用参考）。
 """
 import os, time, argparse
-TPL = """# AGENTS — {name}
 
-> 由 Skill_Generator 收尾自动生成（简要 agent 工具提示词）·{date}
-
-## 用途
-{purpose}
-
-## 结构速览
-- `SKILL.md`：入口与流程索引。
-- `references/`：知识库；`scripts/`：可执行工具（英文名、MIT 依赖）。
-- `resistance/`：约束与兜底；`branch/流程/`：各流程分支；`tmp/`：暂存（收尾后清理）。
-
-## 调用方式
-1. 先读 `SKILL.md` 判断创建/修改路径，从「初始化」进入。
-2. 推理步骤记逻辑链；审核用正方/反方双链辩论；失败记录中断点、修复后返回该步骤。
-3. 长上下文先压缩；过程链可存档/恢复；异常按惩罚机制熔断。
-"""
-
-def purpose_of(target):
-    sk = os.path.join(target, "SKILL.md")
-    if os.path.exists(sk):
-        for l in open(sk, encoding="utf-8"):
-            s = l.strip()
-            if s and not s.startswith(("#", "|", ">", "[", "-")):
-                return s[:80]
-    return "（请补充本 skill 用途）"
+def _read_first_para(path):
+    if not os.path.exists(path): return "（用途待补充）"
+    for l in open(path, encoding="utf-8"):
+        s = l.strip()
+        if s and not s.startswith(("#", "|", ">", "[", "-")): return s[:120]
+    return "（用途待补充）"
 
 def gen(target, name=None):
     name = name or os.path.basename(os.path.normpath(target))
-    out = os.path.join(target, "AGENTS.md")
-    open(out, "w", encoding="utf-8").write(
-        TPL.format(name=name, date=time.strftime("%Y-%m-%d"), purpose=purpose_of(target)))
-    print(f"[agent提示词] 已生成 {out}")
-    return out
+    purpose = _read_first_para(os.path.join(target, "SKILL.md"))
+    date = time.strftime("%Y-%m-%d")
+    base = f"{name} · {date}"
+    agent_dir = os.path.join(target, "agent")
+    os.makedirs(agent_dir, exist_ok=True)
+    tools = f"- scripts/：可执行工具（{name} 自动生成）\n- resistance/：约束与兜底\n- branch/流程/：各阶段分支"
+    TPLS = {
+        "CLAUDE.md": f"# {base}\n\n## 角色\n{purpose}\n\n## 可用工具\n{tools}\n\n## 调用约定\n1. 读 SKILL.md 进入「初始化」。\n2. 推理时记逻辑链；审核用正方/反方双链辩论。\n3. 异常记中断步骤，修复后 resume 返回重评。",
+        ".cursorrules": f"# {name} Agent Rules\n\n## Purpose\n{purpose}\n\n## Tools\n{tools}\n\n## Rules\n- 先读 SKILL.md 再执行任何步骤。\n- 所有决策节点须记录逻辑链；审查须正反双链辩论。\n- 失败记录中断点（process_chain interrupt），修复后 resume 返回。",
+        "instructions.md": f"# {base}\n\n## Goal\n{purpose}\n\n## Capabilities\n{tools}\n\n## Operating Procedure\n1. Read SKILL.md → navigate to 初始化.\n2. Chain logic at each decision; debate pro/contra at review gates.\n3. On failure: record interrupt point; after fix: resume to that step.",
+        "agent_prompt.md": f"# {name} — Agent Prompt Reference\n\n> Generated {date}. Covers CLAUDE.md, .cursorrules, instructions.md, and this cross-reference.\n\n## Purpose\n{purpose}\n\n## Tool Index\n{tools}\n\n## Cross-Tool Mapping\n| Tool | File | Entry |\n|---|---|---|\n| Claude Code | `CLAUDE.md` | `# {name}` role block |\n| Cursor / Windsurf | `.cursorrules` | `## Rules` section |\n| OpenAI Assistants | `instructions.md` | `## Goal` block |\n| General | `agent_prompt.md` | This file |\n\n## Common Protocol\nInitialize → 初始化 → 需求确认 → … → 收尾 (release+clean+gen_prompt) → AGENTS.md complete.",
+    }
+    for fn, content in TPLS.items():
+        open(os.path.join(agent_dir, fn), "w", encoding="utf-8").write(content)
+    print(f"[agent提示词] 已写入 {agent_dir}/（CLAUDE.md/.cursorrules/instructions.md/agent_prompt.md）")
+    return agent_dir
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("--target", required=True); ap.add_argument("--name")

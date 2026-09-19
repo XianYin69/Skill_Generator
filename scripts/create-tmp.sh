@@ -5,7 +5,7 @@ set -e
 TARGET="${1:-.}"
 TMP="$TARGET/tmp"
 
-mkdir -p "$TMP"/branch "$TMP"/flowchart "$TMP"/references "$TMP"/resistance "$TMP"/update
+mkdir -p "$TMP"/agent "$TMP"/branch "$TMP"/flowchart "$TMP"/references "$TMP"/resistance "$TMP"/update
 
 cat > "$TMP/rule_edit.md" <<'EOF'
 # RULE_EDIT（编辑规则）
