@@ -1,31 +1,39 @@
-﻿# 建立 tmp 目录及初始结构（Windows PowerShell）
-param(
-    [string]$Target = "."
-)
-
+﻿# create-tmp: 建立 tmp 目录及初始结构（Windows PowerShell）
+param([string]$Target = ".")
 $tmp = Join-Path $Target "tmp"
 $folders = @("branch", "flowchart", "references", "resistance", "update")
-
-# 1. 建立 tmp 及初始文件夹
 New-Item -ItemType Directory -Path $tmp -Force | Out-Null
-foreach ($f in $folders) {
-    New-Item -ItemType Directory -Path (Join-Path $tmp $f) -Force | Out-Null
-}
-
-# 2. 写入 rule_edit.md 占位内容
-$rule = @"
+foreach ($f in $folders) { New-Item -ItemType Directory -Path (Join-Path $tmp $f) -Force | Out-Null }
+$ruleEdit = @'
 # RULE_EDIT（编辑规则）
 
-> 待补充本 Skill 的编辑规则。
-"@
-Set-Content -Path (Join-Path $tmp "rule_edit.md") -Value $rule -Encoding UTF8
+> 本项目规范与文档的编辑规则；Agent 与贡献者必须遵守。
+> 适用边界：本文件管 **skill 本体的编辑**（`SKILL.md`、`references/`、`scripts/`、`Sample/`、`CHANGELOG.md`）；设计执行期在工程工作区创建文件与目录的范围与权限，管在 [`FILE_CREATION_POLICY.md`](FILE_CREATION_POLICY.md) 与 [`resistance/约束部分/约束部分.md`](resistance/约束部分/约束部分.md)。
 
-# 3. 写入 .gitignore
-Set-Content -Path (Join-Path $tmp ".gitignore") -Value "./tmp" -Encoding UTF8
+## 一、约束
 
-# 4. 初始化 git 仓库
+- 约束文本长度 ≤ 50 行。
+- 使用自然语言
+- 文件夹名为流程名
+- markdown名和其他文件名为 流程名 + 扩展名
+- 流程名文件夹下必须包含流程名markdown
+- script脚本使用英文名称 + 拓展名
+
+## 二、编辑流程
+
+1. 识别要编辑或新建的规范、文档。
+2. 询问用户：需要预留哪些部分？
+3. 判断该部分是否过长（超过 50 行）：过长则用「总索引 + 子文件」拆分，否则跳过拆分。
+4. 询问用户：是否需要新建文件或文件夹？
+5. 执行修改（遵守「文本 ≤ 50 行 + 自然语言」）。
+6. 运行 `python scripts/check-links.py`（全树悬空链接必须为 0，孤立文档需接链或说明）。
+7. 修改 CHANGELOG.md（记录本次变更）。
+8. 提交 git。
+'@
+$utf8 = New-Object System.Text.UTF8Encoding($false)
+[System.IO.File]::WriteAllText((Join-Path $tmp 'rule_edit.md'), $ruleEdit, $utf8)
+[System.IO.File]::WriteAllText((Join-Path $tmp '.gitignore'), './tmp', $utf8)
 Push-Location $tmp
 git init 2>&1 | Out-Null
 Pop-Location
-
 Write-Output "tmp 目录已建立：$tmp"
