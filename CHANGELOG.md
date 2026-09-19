@@ -38,4 +38,5 @@ All notable changes to this project will be documented in this file.
 - 以整体审查分支实测本项目 → 固化 `resistance/审查约束/审查约束.md`；修正 `check-links.py`、`knowledge_convert.py` 超 50 行。
 - `tmp/` 建目录新增 `agent/`：`create-tmp.ps1`/`create-tmp.sh` 追加该目录，`建立tmp.md` 同步更新；`gen_agent_prompt.py` 重写为输出四格式（`agent/CLAUDE.md`、`agent/.cursorrules`、`agent/instructions.md`、`agent/agent_prompt.md`），覆盖 Claude Code / Cursor / OpenAI Assistants / 通用参考。
 - 为本项目执行 `gen_agent_prompt.py` 生成四份 agent 提示词（`agent/` 目录提交至项目）。
+- `gen_agent_prompt.py` 重写为**系统提示词格式**（角色定义 + 工具列表 + 工作流 + 核心机制 + 红线 + 开始），输出四格式均可直接注入 agent；脚本压缩至 44 行；各生成文件 ≤ 50 行。
 

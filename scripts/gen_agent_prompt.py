@@ -1,36 +1,44 @@
-"""gen_agent_prompt.py — 生成四种主流 agent/CLI 工具格式提示词（存于 agent/）。
-命令：python gen_agent_prompt.py --target <目标skill目录> [--name <skill名>]
-格式：CLAUDE.md（Claude Code）、.cursorrules（Cursor/Windsurf）、
-      instructions.md（OpenAI Assistants）、agent_prompt.md（通用参考）。
-"""
+"""gen_agent_prompt.py — 四格式 agent 系统提示词生成器（≤50行）。"""
 import os, time, argparse
-
-def _read_first_para(path):
-    if not os.path.exists(path): return "（用途待补充）"
-    for l in open(path, encoding="utf-8"):
-        s = l.strip()
-        if s and not s.startswith(("#", "|", ">", "[", "-")): return s[:120]
-    return "（用途待补充）"
-
+T = ", ".join(f"`scripts/{x}.py`" for x in "knowledge_browser,knowledge_download,knowledge_convert,"
+    "gen_agent_prompt,logic_chain,process_chain,garbage_collect,context_compress,"
+    "penalty,self_update,check-links".split(","))
+FZ = "初始化→需求确认→经验查询→大纲构建→分支分析→脚本构建→知识库构建→约束编写→整体审查→收尾→完成"
+FE = "init→requirement→research→outline→analyze→scripts→kb→constraints→review→wrapup→done"
+def _p(t):
+    s = os.path.join(t, "SKILL.md")
+    if os.path.exists(s):
+        for l in open(s, encoding="utf-8"):
+            x = l.strip()
+            if x and not x.startswith(("#", "|", ">", "[", "-")): return x[:80]
+    return "Auto-generates and iterates Agent Skills"
+def _zh(n, p, d):
+    return (f"# {n} · {d}\n\n## 角色\n你是{n}——自动生成与迭代 Agent Skill 的智能体。目标：{p}\n\n"
+            f"## 可用工具\n{T}\n\n## 工作流\n创建：{FZ} | 修改：初始化→修改流程→完成\n\n"
+            f"## 机制\n逻辑链（双链辩论）/过程链（interrupt/resume）/惩罚熔断/上下文压缩/垃圾回收\n\n"
+            f"## 红线\n不得跳过初始化；不得静默写盘（--dry-run默认）；不得删除resistance/约束；悬空链接必须为0；文件≤50行\n\n"
+            f"## 开始\n等待用户提出需求，读取 SKILL.md 后从初始化开始。")
+def _en(n, p, d):
+    return (f"# {n} Agent Rules · {d}\n\n## Role\nYou are {n}. Purpose: {p}\n\n"
+            f"## Tools\n{T}\n\n## Workflow\nCreate: {FE} | Modify: init→modify→done\n\n"
+            f"## Mechanisms\nLogic chain (pro/con debate) / Process chain (interrupt/resume) / Penalty circuit-breaker / Context compression / GC\n\n"
+            f"## Red Lines\nNever skip init; never write to disk silently (--dry-run default); never delete resistance/ constraints; check-links must be 0; files ≤50 lines\n\n"
+            f"## Start\nWait for user requirements, read SKILL.md, begin at initialization.")
 def gen(target, name=None):
-    name = name or os.path.basename(os.path.normpath(target))
-    purpose = _read_first_para(os.path.join(target, "SKILL.md"))
-    date = time.strftime("%Y-%m-%d")
-    base = f"{name} · {date}"
-    agent_dir = os.path.join(target, "agent")
-    os.makedirs(agent_dir, exist_ok=True)
-    tools = f"- scripts/：可执行工具（{name} 自动生成）\n- resistance/：约束与兜底\n- branch/流程/：各阶段分支"
-    TPLS = {
-        "CLAUDE.md": f"# {base}\n\n## 角色\n{purpose}\n\n## 可用工具\n{tools}\n\n## 调用约定\n1. 读 SKILL.md 进入「初始化」。\n2. 推理时记逻辑链；审核用正方/反方双链辩论。\n3. 异常记中断步骤，修复后 resume 返回重评。",
-        ".cursorrules": f"# {name} Agent Rules\n\n## Purpose\n{purpose}\n\n## Tools\n{tools}\n\n## Rules\n- 先读 SKILL.md 再执行任何步骤。\n- 所有决策节点须记录逻辑链；审查须正反双链辩论。\n- 失败记录中断点（process_chain interrupt），修复后 resume 返回。",
-        "instructions.md": f"# {base}\n\n## Goal\n{purpose}\n\n## Capabilities\n{tools}\n\n## Operating Procedure\n1. Read SKILL.md → navigate to 初始化.\n2. Chain logic at each decision; debate pro/contra at review gates.\n3. On failure: record interrupt point; after fix: resume to that step.",
-        "agent_prompt.md": f"# {name} — Agent Prompt Reference\n\n> Generated {date}. Covers CLAUDE.md, .cursorrules, instructions.md, and this cross-reference.\n\n## Purpose\n{purpose}\n\n## Tool Index\n{tools}\n\n## Cross-Tool Mapping\n| Tool | File | Entry |\n|---|---|---|\n| Claude Code | `CLAUDE.md` | `# {name}` role block |\n| Cursor / Windsurf | `.cursorrules` | `## Rules` section |\n| OpenAI Assistants | `instructions.md` | `## Goal` block |\n| General | `agent_prompt.md` | This file |\n\n## Common Protocol\nInitialize → 初始化 → 需求确认 → … → 收尾 (release+clean+gen_prompt) → AGENTS.md complete.",
-    }
-    for fn, content in TPLS.items():
-        open(os.path.join(agent_dir, fn), "w", encoding="utf-8").write(content)
-    print(f"[agent提示词] 已写入 {agent_dir}/（CLAUDE.md/.cursorrules/instructions.md/agent_prompt.md）")
-    return agent_dir
-
+    n = name or os.path.basename(os.path.normpath(target)); p = _p(target)
+    d = time.strftime("%Y-%m-%d"); out = os.path.join(target, "agent"); os.makedirs(out, exist_ok=True)
+    z, e = _zh(n, p, d), _en(n, p, d)
+    open(os.path.join(out, "CLAUDE.md"), "w", encoding="utf-8").write(z)
+    open(os.path.join(out, ".cursorrules"), "w", encoding="utf-8").write(e)
+    open(os.path.join(out, "instructions.md"), "w", encoding="utf-8").write(e)
+    cross = f"\n\n## Cross-Tool Mapping\n| Tool | File | Entry |\n|---|---|---|\n" \
+            f"| Claude Code | `CLAUDE.md` | `# {n}` role block |\n" \
+            "| Cursor/Windsurf | `.cursorrules` | `## Rules` section |\n" \
+            "| OpenAI Assistants | `instructions.md` | `## Goal` block |\n" \
+            f"| General | `agent_prompt.md` | This file |"
+    open(os.path.join(out, "agent_prompt.md"), "w", encoding="utf-8").write(
+        f"# {n} — System Prompt (Universal)\n\n> {d} | Four formats in agent/\n\n" + z + cross)
+    print(f"[agent提示词] 已生成 agent/（四格式系统提示词）")
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("--target", required=True); ap.add_argument("--name")
-    a = ap.parse_args(); gen(a.target, a.name)
+    gen(ap.parse_args().target, ap.parse_args().name)
