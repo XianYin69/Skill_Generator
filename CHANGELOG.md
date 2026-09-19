@@ -30,5 +30,9 @@ All notable changes to this project will be documented in this file.
 - 新增 scripts：`knowledge_browser.py`、`knowledge_download.py`、`knowledge_convert.py`（MIT 依赖，留证清洗）；`self_update.py`（report/compare/release/clean 接口）。
 - 自更新重构为接口：`update/update.md` 定义外部 skill 可调契约；初始化[标记完成]挂载接口+冻结过程链快照；收尾新增「比对 tmp → 释放到目标 skill → 删除 tmp」。
 - 五大机制（垃圾回收/上下文压缩/逻辑链/过程链存取/惩罚）：`resistance/` 约束文档 + `scripts/` 实现脚本，并接入相关流程步骤根与 SKILL/流程索引。
+- 收尾自动生成 agent 工具提示词：新增 scripts/gen_agent_prompt.py（写 AGENTS.md 到目标 skill 根）；收尾「收尾操作」接「生成agent工具提示词」→「完成skill开发」。
+- 审核正反双链辩论：resistance/逻辑链机制 增加「正反双链辩论」规则；整体审查新增 正方逻辑链/反方逻辑链/辩论裁决（辩论闸口）；收尾「审核提示词」新增 提示词正方链/提示词反方链/提示词辩论裁决。
+- 返回机制：resistance/过程链存取 增加「中断—返回」规则；整体审查新增 记录中断步骤/返回中断步骤，与 process_chain.py interrupt/resume 配合，审查修复后必须回到中断步骤重评。
+- logic_chain.py 增加 `debate` 命令；process_chain.py 增加 `interrupt`/`resume` 命令（均 ≤ 50 行）。
 - 以整体审查分支实测本项目 → 固化 `resistance/审查约束/审查约束.md`；修正 `check-links.py`、`knowledge_convert.py` 超 50 行。
 
