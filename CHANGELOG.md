@@ -20,4 +20,5 @@ All notable changes to this project will be documented in this file.
 - `references/流程/` 重命名：去掉所有步骤文件夹前的序号前缀（`01_需求确认/` → `需求确认/` 等），同步更新各文件内部链接。
 - `references/流程/初始化/` 细化：每个初始化节点独立成文件，`README.md` 作为根节点，拆分出 01_读取目录 至 09_标记完成 共 9 个节点文件，并通过「上一步/下一步」链接串联。
 - 全项目命名修正：所有 `README.md` 改为「流程名.md」；`branch/`、`references/`、`scripts/`、`update/`、`resistance/` 及 `references/流程/` 下每个步骤文件夹的 markdown 均与文件夹同名；`初始化/` 下编号子节点改为子文件夹（文件夹=流程名，内含同名 markdown）。
+- 目录归属修正：`references/流程/` → `branch/流程/`（流程属于分支库）；`references/约束部分/` → `resistance/约束部分/`（约束属于约束库）；同步更新 rule_edit.md、SKILL.md、references.md、branch.md、resistance.md 等交叉引用。
 
