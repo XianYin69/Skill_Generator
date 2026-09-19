@@ -37,4 +37,5 @@ All notable changes to this project will be documented in this file.
 - 分支分析 / 脚本构建阶段新增「视觉 / 听觉交互」约束：用户如需视觉或听觉输入/交互，必须创建对应 `scripts/` 脚本（如 `vision_input.py`、`audio_input.py`）并在流程节点中显式调用。
 - 以整体审查分支实测本项目 → 固化 `resistance/审查约束/审查约束.md`；修正 `check-links.py`、`knowledge_convert.py` 超 50 行。
 - `tmp/` 建目录新增 `agent/`：`create-tmp.ps1`/`create-tmp.sh` 追加该目录，`建立tmp.md` 同步更新；`gen_agent_prompt.py` 重写为输出四格式（`agent/CLAUDE.md`、`agent/.cursorrules`、`agent/instructions.md`、`agent/agent_prompt.md`），覆盖 Claude Code / Cursor / OpenAI Assistants / 通用参考。
+- 为本项目执行 `gen_agent_prompt.py` 生成四份 agent 提示词（`agent/` 目录提交至项目）。
 
