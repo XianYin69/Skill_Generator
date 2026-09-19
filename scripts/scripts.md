@@ -10,11 +10,12 @@
 
 ## 当前内容
 
-- 暂无（最小骨架）。
-- 预留：`check-links.py`（rule_edit.md 要求的悬空链接校验器）。
+- [`check-links.py`](check-links.py)：悬空链接校验器（rule_edit.md 要求）。
+- [`建立tmp.ps1`](建立tmp.ps1)：建立 tmp 目录及初始结构（Windows）。
+- [`建立tmp.sh`](建立tmp.sh)：建立 tmp 目录及初始结构（macOS / Linux）。
 
 ## 运行约定
 
 1. 使用项目的默认 Python。
 2. 任何可能写入磁盘的脚本必须加 `--dry-run` 默认模式。
-3. 运行前先看 [`resistance/`](../resistance/) 确认权限与回滚策略。
+3. 运行前先看 [resistance](../resistance/resistance.md) 确认权限与回滚策略。
