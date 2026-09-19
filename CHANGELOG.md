@@ -16,5 +16,6 @@ All notable changes to this project will be documented in this file.
 - `references/流程/`：SKILL.md 拆分为 10 个阶段子文件（01–10），各 ≤ 50 行，覆盖创建流程与修改流程全部步骤。
 - `SKILL.md` 重写为总索引版（31 行），原 101 行内容拆分至 `references/流程/` 各子文件。
 - `references/流程/` 重构：每个步骤独立成文件夹（含 README.md），新增 `初始化/` 步骤作为创建与修改两条路径的共同入口。
-- `references/流程/README.md`、`SKILL.md` 更正：明确创建流程与修改流程为两条独立路径，完成「09_收尾」后不进入修改流程。
+- `references/流程/README.md`、`SKILL.md` 更正：明确创建流程与修改流程为两条独立路径，完成「收尾」后不进入修改流程。
+- `references/流程/` 重命名：去掉所有步骤文件夹前的序号前缀（`01_需求确认/` → `需求确认/` 等），同步更新各文件内部链接。
 
