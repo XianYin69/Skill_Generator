@@ -13,6 +13,7 @@
 - [`flowchart/`](../flowchart/)：整个 Skill_Generator 流程图的链表 JSON，由 `Skill_Generator_stream.html` 转换而来。入口 [`flowchart/index.json`](../flowchart/index.json)。
 - [`流程/`](../branch/流程/流程.md)：各阶段执行流程（已移至 branch/）。
 - [`约束部分/`](../resistance/约束部分/约束部分.md)：约束区域（已移至 resistance/）。
+- [`知识库信用评级/`](知识库信用评级/知识库信用评级.md)：知识库来源评级标准。
 
 ## 编辑约定
 

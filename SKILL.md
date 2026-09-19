@@ -26,6 +26,11 @@
 
 > 两条路径各自独立，完成收尾后不会进入修改流程。
 
+## 全局机制（同时作用于目标 skill 与本 skill）
+
+约束文档在 [`resistance/`](resistance/resistance.md)，执行脚本在 [`scripts/`](scripts/scripts.md)：
+[垃圾回收](resistance/垃圾回收机制/垃圾回收机制.md) · [上下文压缩](resistance/上下文压缩机制/上下文压缩机制.md) · [逻辑链](resistance/逻辑链机制/逻辑链机制.md) · [过程链存取](resistance/过程链存取/过程链存取.md) · [惩罚](resistance/惩罚机制/惩罚机制.md)
+
 ## 阅读顺序
 
 1. 先看本文件（SKILL.md）了解结构。

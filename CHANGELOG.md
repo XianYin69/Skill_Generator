@@ -26,4 +26,9 @@ All notable changes to this project will be documented in this file.
 - 脚本英文命名：`scripts/建立tmp.ps1` → `create-tmp.ps1`、`scripts/建立tmp.sh` → `create-tmp.sh`（依 rule_edit.md「脚本使用英文名称 + 扩展名」）；同步更新 `scripts.md`、`建立tmp.md` 引用。
 - `branch/流程/大纲构建/`：按 flowchart 构建大纲构建分支流程，拆出 14 个节点子文件夹（建立大纲、审阅大纲、检查可执行、检查可达性、检查兜底、记录错误、搜索方案、检查方案、询问方案、修改大纲、询问接受、询问修改点、生成大纲、标记完成），含 3 类循环修复路径；`大纲构建.md` 重写为根索引。
 - 依据 `flowchart/` 填充其余全部步骤分支：`需求确认(8)/经验查询(13)/分支分析(60)/脚本构建(15)/知识库构建(12)/约束编写(13)/整体审查(15)/收尾(19)/修改流程(4)`，共 159 个节点子文件夹（每个含同名 markdown，按流程图决策分支互相链接、跨步骤跳转正确）；各步骤根 `.md` 重写为含入口节点与后继步骤的索引。
+- 知识库构建增强：限定来源（开放文献库/百科/权威论坛博客/MIT 仓库）、保留许可版权、元数据清洗改造为目标 skill 形态；新增 `references/知识库信用评级/` 评级标准。
+- 新增 scripts：`knowledge_browser.py`、`knowledge_download.py`、`knowledge_convert.py`（MIT 依赖，留证清洗）；`self_update.py`（report/compare/release/clean 接口）。
+- 自更新重构为接口：`update/update.md` 定义外部 skill 可调契约；初始化[标记完成]挂载接口+冻结过程链快照；收尾新增「比对 tmp → 释放到目标 skill → 删除 tmp」。
+- 五大机制（垃圾回收/上下文压缩/逻辑链/过程链存取/惩罚）：`resistance/` 约束文档 + `scripts/` 实现脚本，并接入相关流程步骤根与 SKILL/流程索引。
+- 以整体审查分支实测本项目 → 固化 `resistance/审查约束/审查约束.md`；修正 `check-links.py`、`knowledge_convert.py` 超 50 行。
 

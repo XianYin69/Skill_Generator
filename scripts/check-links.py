@@ -1,76 +1,43 @@
 #!/usr/bin/env python3
-"""check-links.py — 校验项目内所有 markdown 链接是否有效。
-用法: python scripts/check-links.py [--root DIR]
-返回 0 表示无悬空链接，返回 1 表示存在悬空链接。
-"""
+"""check-links.py — 校验项目内所有 markdown 链接是否有效。"""
+import argparse, os, re, sys
 
-import argparse
-import os
-import re
-import sys
-
-
-def find_markdown_files(root):
-    """递归查找所有 .md 文件，排除 tmp/ 与 .git/。"""
-    md_files = []
-    for dirpath, dirs, files in os.walk(root):
-        # 跳过敏感目录
+def find_md(root):
+    files = []
+    for dpath, dirs, fs in os.walk(root):
         dirs[:] = [d for d in dirs if d not in ('tmp', '.git', '__pycache__', '.kilo')]
-        for f in files:
-            if f.endswith('.md'):
-                md_files.append(os.path.join(dirpath, f))
-    return md_files
+        files += [os.path.join(dpath, f) for f in fs if f.endswith('.md')]
+    return files
 
-
-def extract_links(content, base_dir):
-    """从 markdown 内容中提取所有相对路径链接。"""
-    links = []
+def links(content, base_dir):
+    out = []
     for m in re.finditer(r'\[([^\]]+)\]\(([^)]+)\)', content):
-        target = m.group(2)
-        # 跳过 URL、锚点、协议
-        if target.startswith('http') or target.startswith('#'):
+        t = m.group(2)
+        if t.startswith('http') or t.startswith('#') or '://' in t:
             continue
-        if '://' in target:
-            continue
-        # 解析相对路径
-        full = os.path.normpath(os.path.join(base_dir, target))
-        links.append((target, full))
-    return links
+        out.append((t, os.path.normpath(os.path.join(base_dir, t))))
+    return out
 
-
-def check_links(root):
-    """检查所有链接，返回悬空链接列表。"""
+def check(root):
     orphans = []
-    md_files = find_markdown_files(root)
-    for fpath in md_files:
-        base_dir = os.path.dirname(fpath)
+    for f in find_md(root):
         try:
-            with open(fpath, 'r', encoding='utf-8') as f:
-                content = f.read()
+            c = open(f, encoding='utf-8').read()
         except Exception:
             continue
-        for target, full in extract_links(content, base_dir):
+        for t, full in links(c, os.path.dirname(f)):
             if not os.path.exists(full):
-                rel = os.path.relpath(fpath, root)
-                orphans.append((rel, target))
+                orphans.append((os.path.relpath(f, root), t))
     return orphans
 
-
-def main():
-    parser = argparse.ArgumentParser(description='检查 markdown 链接有效性')
-    parser.add_argument('--root', default=os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    args = parser.parse_args()
-
-    orphans = check_links(args.root)
-    if orphans:
-        print(f'发现 {len(orphans)} 个悬空链接：')
-        for f, t in orphans:
+if __name__ == '__main__':
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--root', default=os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    a = ap.parse_args()
+    o = check(a.root)
+    if o:
+        print(f'发现 {len(o)} 个悬空链接：')
+        for f, t in o:
             print(f'  {f} -> {t}')
         sys.exit(1)
-    else:
-        print('无悬空链接，校验通过。')
-        sys.exit(0)
-
-
-if __name__ == '__main__':
-    main()
+    print('无悬空链接，校验通过。')
