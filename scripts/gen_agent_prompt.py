@@ -1,16 +1,20 @@
-"""gen_agent_prompt.py — 四格式 agent 系统提示词生成器（≤50行）。"""
+"""gen_agent_prompt.py — 生成四格式agent提示词+SKILL.md（KiloCode格式）。"""
 import os, time, argparse
-T = ", ".join(f"`scripts/{x}.py`" for x in "knowledge_browser,knowledge_download,knowledge_convert,"
-    "gen_agent_prompt,logic_chain,process_chain,garbage_collect,context_compress,"
-    "penalty,self_update,check-links".split(","))
-FZ = "初始化→需求确认→经验查询→大纲构建→分支分析→脚本构建→知识库构建→约束编写→整体审查→收尾→完成"
-FE = "init→requirement→research→outline→analyze→scripts→kb→constraints→review→wrapup→done"
+T = ", ".join(f"`scripts/{x}.py`" for x in "knowledge_browser,knowledge_download,knowledge_convert,gen_agent_prompt,logic_chain,process_chain,garbage_collect,context_compress,penalty,self_update,check-links".split(","))
+FZ, FE = "初始化→需求确认→经验查询→大纲构建→分支分析→脚本构建→知识库构建→约束编写→整体审查→收尾→完成", "init→requirement→research→outline→analyze→scripts→kb→constraints→review→wrapup→done"
 def _p(t):
     s = os.path.join(t, "SKILL.md")
-    if os.path.exists(s):
-        for l in open(s, encoding="utf-8"):
-            x = l.strip()
-            if x and not x.startswith(("#", "|", ">", "[", "-")): return x[:80]
+    if not os.path.exists(s): return "Auto-generates and iterates Agent Skills"
+    lines = open(s, encoding="utf-8").read().splitlines()
+    # Find description: inside frontmatter (---)
+    in_fm = False
+    for l in lines:
+        if l.strip() == "---":
+            if in_fm: break
+            in_fm = True; continue
+        if in_fm and l.strip().startswith("description:"):
+            val = l.split(":", 1)[1].strip()
+            return val[:80] if val and val != ">" else "Auto-generates and iterates Agent Skills"
     return "Auto-generates and iterates Agent Skills"
 def _zh(n, p, d):
     return (f"# {n} · {d}\n\n## 角色\n你是{n}——自动生成与迭代 Agent Skill 的智能体。目标：{p}\n\n"
@@ -26,19 +30,20 @@ def _en(n, p, d):
             f"## Start\nWait for user requirements, read SKILL.md, begin at initialization.")
 def gen(target, name=None):
     n = name or os.path.basename(os.path.normpath(target)); p = _p(target)
-    d = time.strftime("%Y-%m-%d"); out = os.path.join(target, "agent"); os.makedirs(out, exist_ok=True)
-    z, e = _zh(n, p, d), _en(n, p, d)
+    d = time.strftime("%Y-%m-%d"); z, e = _zh(n, p, d), _en(n, p, d)
+    open(os.path.join(target, "SKILL.md"), "w", encoding="utf-8").write(
+        f"---\nname: {n}\ndescription: >\n  {p}\nlicense: MIT\nmetadata:\n  category: development\n---\n\n"
+        + z + "\n\n## 详细流程\n- 流程节点：[branch/流程/](branch/流程/流程.md)\n- 约束兜底：[resistance/](resistance/resistance.md)\n")
+    out = os.path.join(target, "agent"); os.makedirs(out, exist_ok=True)
     open(os.path.join(out, "CLAUDE.md"), "w", encoding="utf-8").write(z)
     open(os.path.join(out, ".cursorrules"), "w", encoding="utf-8").write(e)
     open(os.path.join(out, "instructions.md"), "w", encoding="utf-8").write(e)
-    cross = f"\n\n## Cross-Tool Mapping\n| Tool | File | Entry |\n|---|---|---|\n" \
-            f"| Claude Code | `CLAUDE.md` | `# {n}` role block |\n" \
-            "| Cursor/Windsurf | `.cursorrules` | `## Rules` section |\n" \
-            "| OpenAI Assistants | `instructions.md` | `## Goal` block |\n" \
-            f"| General | `agent_prompt.md` | This file |"
     open(os.path.join(out, "agent_prompt.md"), "w", encoding="utf-8").write(
-        f"# {n} — System Prompt (Universal)\n\n> {d} | Four formats in agent/\n\n" + z + cross)
-    print(f"[agent提示词] 已生成 agent/（四格式系统提示词）")
+        f"# {n} — System Prompt (Universal)\n\n> {d} | Four formats in agent/\n\n"
+        + z + "\n\n## Cross-Tool Mapping\n| Tool | File | Entry |\n|---|---|---|\n"
+        f"| Claude Code | `CLAUDE.md` | `# {n}` role block |\n| Cursor/Windsurf | `.cursorrules` | `## Rules` |\n"
+        "| OpenAI Assistants | `instructions.md` | `## Goal` |\n| General | `agent_prompt.md` | This file |")
+    print("[OK] SKILL.md + agent/ 已生成")
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("--target", required=True); ap.add_argument("--name")
     gen(ap.parse_args().target, ap.parse_args().name)

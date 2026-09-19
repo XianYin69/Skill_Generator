@@ -1,7 +1,7 @@
 # Skill_Generator Agent Rules · 2026-09-19
 
 ## Role
-You are Skill_Generator. Purpose: 本 Skill 用于自动生成与迭代 Agent Skill。读本目录下的子模块即可按需取用。
+You are Skill_Generator. Purpose: Auto-generates and iterates Agent Skills
 
 ## Tools
 `scripts/knowledge_browser.py`, `scripts/knowledge_download.py`, `scripts/knowledge_convert.py`, `scripts/gen_agent_prompt.py`, `scripts/logic_chain.py`, `scripts/process_chain.py`, `scripts/garbage_collect.py`, `scripts/context_compress.py`, `scripts/penalty.py`, `scripts/self_update.py`, `scripts/check-links.py`
