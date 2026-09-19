@@ -18,7 +18,9 @@
 2. 询问用户：需要预留哪些部分？
 3. 判断该部分是否过长（超过 50 行）：过长则用「总索引 + 子文件」拆分，否则跳过拆分。
 4. 询问用户：是否需要新建文件或文件夹？
-5. 执行修改（遵守「文本 ≤ 50 行 + 自然语言」）。
-6. 运行 `python scripts/check-links.py`（全树悬空链接必须为 0，孤立文档需接链或说明）。
-7. 修改 CHANGELOG.md（记录本次变更）。
-8. 提交 git。
+5. 将变更在 `tmp/` 镜像中执行（遵守「文本 ≤ 50 行 + 自然语言」）；禁止直接写入 skill 本体目录。
+6. 运行 `python scripts/check-links.py --root tmp`（全树悬空链接必须为 0，孤立文档需接链或说明）。
+7. 执行 `python scripts/self_update.py compare --tmp tmp --target <skill根目录>`；有差异则修正 tmp/ 后重跑步骤 5–6 直至无差异。
+8. 执行 `python scripts/self_update.py release --tmp tmp --target <skill根目录>` 将 tmp/ 释放到目标 skill。
+9. 更新 CHANGELOG.md（记录本次变更）。
+10. 提交 git。

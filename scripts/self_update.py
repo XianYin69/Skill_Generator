@@ -8,6 +8,7 @@
 约束见 resistance/惩罚机制、resistance/垃圾回收机制。
 """
 import os, sys, json, time, argparse, shutil, filecmp
+_SKIP = ("state", "updates", ".git")
 
 def _log(entry):
     os.makedirs("tmp/updates", exist_ok=True)
@@ -20,20 +21,19 @@ def report(a):
 
 def compare(a):
     diff = []
-    for root, _, fs in os.walk(a.tmp):
+    for root, ds, fs in os.walk(a.tmp):
+        ds[:] = [d for d in ds if d not in _SKIP]
         for fn in fs:
             s = os.path.join(root, fn); rel = os.path.relpath(s, a.tmp); d = os.path.join(a.target, rel)
             if not os.path.exists(d) or not filecmp.cmp(s, d, shallow=False):
                 diff.append(rel)
     _log({"t": time.time(), "type": "compare", "diff": diff})
-    print(f"[自更新] 差异 {len(diff)} 项：", ", ".join(diff[:10]))
-    return diff
+    print(f"[自更新] 差异 {len(diff)} 项：", ", ".join(diff[:10])); return diff
 
 def release(a):
     if compare(a) is None:
         return
-    shutil.copytree(a.tmp, a.target, dirs_exist_ok=True)
-    _log({"t": time.time(), "type": "release", "to": a.target}); print("[自更新] tmp 已释放到目标 skill")
+    shutil.copytree(a.tmp, a.target, dirs_exist_ok=True, ignore=shutil.ignore_patterns(*_SKIP)); _log({"t": time.time(), "type": "release", "to": a.target}); print("[自更新] tmp 已释放到目标 skill")
 
 def clean(a):
     if os.path.isdir(a.tmp):

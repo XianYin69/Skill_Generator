@@ -42,9 +42,10 @@ All notable changes to this project will be documented in this file.
 - `SKILL.md` 适配 KiloCode skill 格式：YAML frontmatter（name/description/license/metadata）+ 可直接注入 agent 的系统提示词（工作原则/执行路径/可用工具/红线/开始），49 行。
 - `gen_agent_prompt.py` 扩展为同时生成目标 skill 的 `SKILL.md`（KiloCode YAML frontmatter）+ `agent/` 四格式；从目标 SKILL.md frontmatter 提取 description，fallback 默认值；脚本压缩至 49 行。
 - `收尾/生成agent工具提示词.md`、`收尾.md` 同步更新，说明 SKILL.md 生成步骤。
-
 ### Fixed（2026-09-19 自修复，经 self_update.report 登记 + 逻辑链留痕）
-- `gen_agent_prompt.py`：可用工具清单改为动态枚举目标 `scripts/*.py`（无脚本时回退默认清单）；生成的 SKILL.md 仅链接目标内存在的路径，杜绝外部目标悬空链接；目标目录缺失自动创建；脚本重压至 50 行。
+- `gen_agent_prompt.py`：可用工具清单改为动态枚举目标 `scripts/*.py`（无脚本时回退默认清单）；生成的 SKILL.md 仅链接目标内存在的路径，杜绝外部目标悬空链接；目标目录缺失自动创建；脚本重压至 49 行。
+- `SKILL.md`：补充 agent/ 四格式生成说明；红线增加「生成的 SKILL.md 必须含 YAML frontmatter；agent/ 四格式必须可直接注入 agent」；压缩至 48 行。
 - `收尾.md`：节点计数 22→23（19+3+1 恒为 23，与节点目录实数一致）。
 - 五个机制脚本 docstring 的 resistance 规则引用补全目录层级（`resistance/<名>/<名>.md`）。
 - `rule_edit.md` 适用边界 `Sample/`→`branch/`、`update/`（本仓库实际目录）；`SKILL.md` 惩罚熔断「超 10 次」→「达 10 次」，与 penalty.py 阈值口径一致。
+- 2026-09-19 修改：规定本 skill 内容修改的唯一写盘通道 = 自更新接口（SKILL.md 红线新增第 4 条 + update.md 运行约定第 4 条 + rule_edit.md 编辑流程 step 5–10 改为 tmp 镜像准备 + compare→release 路由）；self_update.py compare/release 增加对过程工件目录（state/updates/.git）的剪枝；CHANGELOG 通过删 1 个空行预留 1 行记录位。

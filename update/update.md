@@ -26,3 +26,4 @@
 1. 自更新不得改动 [`resistance/`](../resistance/resistance.md) 中的约束红线。
 2. 每次 `release` 前须冻结过程链快照，失败可回滚。
 3. 纠正类更新须经 [整体审查](../branch/流程/整体审查/整体审查.md) 九项标准复核。
+4. 本 skill 的内容修改仅允许通过本接口路由：先在 `tmp/` 镜像准备变更，再 `compare`→`release` 覆盖到目标 skill；禁止对 skill 本体直接写盘。
