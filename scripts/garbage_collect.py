@@ -1,5 +1,5 @@
 """garbage_collect.py — 垃圾回收机制（标准库）。
-用途：回收工作区临时产物，避免污染目标 skill。规则见 resistance/垃圾回收机制.md。
+用途：回收工作区临时产物，避免污染目标 skill。规则见 resistance/垃圾回收机制/垃圾回收机制.md。
 操作：删除 tmp 内 .tmp/.bak/.log/.part、空目录、超过保留期的下载；干跑预览用 --dry-run。
 """
 import os, sys, time, argparse

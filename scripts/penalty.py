@@ -1,6 +1,6 @@
 """penalty.py — 惩罚机制（标准库）。
 用途：对重复失败/越权/违反约束的行为计分并在超阈值时熔断，强制回退或求助用户。
-     规则见 resistance/惩罚机制.md；阈值与各 skill 的重试上限挂钩。
+     规则见 resistance/惩罚机制/惩罚机制.md；阈值与各 skill 的重试上限挂钩。
 数据：tmp/penalty.json {name: score}。
 """
 import json, os, argparse

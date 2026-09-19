@@ -1,5 +1,5 @@
 """logic_chain.py — 逻辑链机制（标准库）：记录链、校验连续性、正反双链辩论。
-规则见 resistance/逻辑链机制.md。数据 JSONL {from,to,why}。
+规则见 resistance/逻辑链机制/逻辑链机制.md。数据 JSONL {from,to,why}。
 命令：
   add <chain_file> --from A --to B --why R
   verify <chain_file>

@@ -1,6 +1,6 @@
 """process_chain.py — 过程链存取机制（标准库）。
 把流程执行状态按步存档、可回溯恢复，并支持审查失败后的「中断—返回」定位。
-规则见 resistance/过程链存取.md。数据 tmp/state/*.json。
+规则见 resistance/过程链存取/过程链存取.md。数据 tmp/state/*.json。
 命令：
   save --step S --data JSON     存档某步状态并置 latest
   load [--step S]               恢复到指定/最新步
