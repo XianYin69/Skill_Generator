@@ -25,4 +25,5 @@ All notable changes to this project will be documented in this file.
 - 脚本归位：`建立tmp.ps1`、`建立tmp.sh` 移至 `scripts/`（脚本库）；`建立tmp.md` 与 `scripts.md` 同步更新引用。
 - 脚本英文命名：`scripts/建立tmp.ps1` → `create-tmp.ps1`、`scripts/建立tmp.sh` → `create-tmp.sh`（依 rule_edit.md「脚本使用英文名称 + 扩展名」）；同步更新 `scripts.md`、`建立tmp.md` 引用。
 - `branch/流程/大纲构建/`：按 flowchart 构建大纲构建分支流程，拆出 14 个节点子文件夹（建立大纲、审阅大纲、检查可执行、检查可达性、检查兜底、记录错误、搜索方案、检查方案、询问方案、修改大纲、询问接受、询问修改点、生成大纲、标记完成），含 3 类循环修复路径；`大纲构建.md` 重写为根索引。
+- 依据 `flowchart/` 填充其余全部步骤分支：`需求确认(8)/经验查询(13)/分支分析(60)/脚本构建(15)/知识库构建(12)/约束编写(13)/整体审查(15)/收尾(19)/修改流程(4)`，共 159 个节点子文件夹（每个含同名 markdown，按流程图决策分支互相链接、跨步骤跳转正确）；各步骤根 `.md` 重写为含入口节点与后继步骤的索引。
 
