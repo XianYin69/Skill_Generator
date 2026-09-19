@@ -76,8 +76,23 @@
         "label": "否"
       },
       {
+        "target": "xOh96hWI84y62FH0Uu0n-125",
+        "label": "模糊"
+      },
+      {
         "target": "xOh96hWI84y62FH0Uu0n-20",
         "label": "是"
+      }
+    ]
+  },
+  {
+    "id": "xOh96hWI84y62FH0Uu0n-125",
+    "label": "启动网页流程图编辑器",
+    "shape": "rectangle",
+    "next": [
+      {
+        "target": "xOh96hWI84y62FH0Uu0n-20",
+        "label": ""
       }
     ]
   },

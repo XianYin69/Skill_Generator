@@ -30,7 +30,7 @@ metadata:
 
 ## 可用工具（scripts/）
 
-gen_agent_prompt / knowledge_browser / knowledge_download / knowledge_convert / logic_chain / process_chain / garbage_collect / context_compress / penalty / self_update / check-links
+gen_agent_prompt / knowledge_browser / knowledge_download / knowledge_convert / logic_chain / process_chain / garbage_collect / context_compress / penalty / self_update / check-links / flowchart_editor
 
 > `gen_agent_prompt` 同时生成目标 skill 的 `SKILL.md`（KiloCode YAML frontmatter）+ `agent/` 四格式提示词。
 
