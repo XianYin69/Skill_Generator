@@ -34,5 +34,6 @@ All notable changes to this project will be documented in this file.
 - 审核正反双链辩论：resistance/逻辑链机制 增加「正反双链辩论」规则；整体审查新增 正方逻辑链/反方逻辑链/辩论裁决（辩论闸口）；收尾「审核提示词」新增 提示词正方链/提示词反方链/提示词辩论裁决。
 - 返回机制：resistance/过程链存取 增加「中断—返回」规则；整体审查新增 记录中断步骤/返回中断步骤，与 process_chain.py interrupt/resume 配合，审查修复后必须回到中断步骤重评。
 - logic_chain.py 增加 `debate` 命令；process_chain.py 增加 `interrupt`/`resume` 命令（均 ≤ 50 行）。
+- 分支分析 / 脚本构建阶段新增「视觉 / 听觉交互」约束：用户如需视觉或听觉输入/交互，必须创建对应 `scripts/` 脚本（如 `vision_input.py`、`audio_input.py`）并在流程节点中显式调用。
 - 以整体审查分支实测本项目 → 固化 `resistance/审查约束/审查约束.md`；修正 `check-links.py`、`knowledge_convert.py` 超 50 行。
 
