@@ -20,6 +20,7 @@ All notable changes to this project will be documented in this file.
 - git操作节点：补充操作要点（fetch/pull、`.gitignore` 必含 tmp/ 与 IDE 文件夹、功能分支→dev→main 流转）。
 
 ### Fixed
+- README：同步现状——补执行路径、agent/ 四格式、自更新接口写盘通道、resistance 新约束与 Git 工作流红线摘要。
 - `gen_agent_prompt.py`：可用工具清单动态枚举目标 `scripts/*.py`；SKILL.md 仅链接目标内存在路径；目标目录缺失自动创建。
 - SKILL.md：红线增加 agent/ 生成约束；压缩至 48 行。
 - 五个机制脚本 docstring 的 resistance 引用补全目录层级。
