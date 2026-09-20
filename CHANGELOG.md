@@ -17,6 +17,7 @@ All notable changes to this project will be documented in this file.
 - 需求确认新增「判断是否需要物理输入交互」节点（视觉/听觉/网页交互检测）。
 - 脚本构建新增「物理输入网页交互脚本构建」节点（vision_input.py/audio_input.py/browser_interaction.py）。
 - `resistance/git工作流约束/`：每步功能分支提交、双链辩论→合入 dev、九项审查通过→合入 main 并推送的分支策略。
+- git操作节点：补充操作要点（fetch/pull、`.gitignore` 必含 tmp/ 与 IDE 文件夹、功能分支→dev→main 流转）。
 
 ### Fixed
 - `gen_agent_prompt.py`：可用工具清单动态枚举目标 `scripts/*.py`；SKILL.md 仅链接目标内存在路径；目标目录缺失自动创建。

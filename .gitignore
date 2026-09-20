@@ -2,3 +2,12 @@
 tmp/
 
 __pycache__/
+
+# IDE
+.idea/
+.vscode/
+.zed/
+.trae/
+.kilo/
+*.sublime-workspace
+.history/
