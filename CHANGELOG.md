@@ -22,6 +22,8 @@ All notable changes to this project will be documented in this file.
 - `gen_agent_prompt.py`：agent 四格式与 SKILL.md 增写「调用与开始」——通过 skill 工具按 name 调用本技能加载 SKILL.md；`agent_prompt.md` 跨工具映射新增 skill-aware 客户端入口行。
 - `gen_agent_prompt.py`：提示词直接精简为一句话「使用 skill名 来完成用户请求」——agent/ 四格式与 SKILL.md 正文仅保留该指令（SKILL.md frontmatter 与详细流程链接不变）；本仓库 agent/ 与 SKILL.md「调用与开始」同步重生成。
 
+- 知识库构建新增「是否还能拓扑新的相关领域知识」决策节点：穷尽相关领域知识直到知识树到达不动点（无法再拓扑新领域）方可完成知识库构建；「建立知识文献与流程步骤的」改指该决策节点；SKILL.md 创建路径同步标注。
+
 ### Fixed
 - README：同步现状——补执行路径、agent/ 四格式、自更新接口写盘通道、resistance 新约束与 Git 工作流红线摘要。
 - `gen_agent_prompt.py`：可用工具清单动态枚举目标 `scripts/*.py`；SKILL.md 仅链接目标内存在路径；目标目录缺失自动创建。
