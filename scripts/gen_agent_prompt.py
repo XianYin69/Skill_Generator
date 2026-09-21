@@ -20,13 +20,13 @@ def _zh(n, p, d, T):
             f"## 可用工具\n{T}\n\n## 工作流\n创建：{FZ} | 修改：初始化→修改流程→完成\n\n"
             f"## 机制\n逻辑链（双链辩论）/过程链（interrupt/resume）/惩罚熔断/上下文压缩/垃圾回收\n\n"
             f"## 红线\n不得跳过初始化；不得静默写盘（--dry-run默认）；不得删除resistance/约束；悬空链接必须为0；文件≤50行\n\n"
-            f"## 开始\n等待用户提出需求，读取 SKILL.md 后从初始化开始。")
+             f"## 调用与开始\n通过 skill 工具调用本技能（name: {n}）加载其 SKILL.md；随后等待用户需求，从初始化开始执行。")
 def _en(n, p, d, T):
     return (f"# {n} Agent Rules · {d}\n\n## Role\nYou are {n}. Purpose: {p}\n\n"
             f"## Tools\n{T}\n\n## Workflow\nCreate: {FE} | Modify: init→modify→done\n\n"
             f"## Mechanisms\nLogic chain (pro/con debate) / Process chain (interrupt/resume) / Penalty circuit-breaker / Context compression / GC\n\n"
             f"## Red Lines\nNever skip init; never write to disk silently (--dry-run default); never delete resistance/ constraints; check-links must be 0; files ≤50 lines\n\n"
-            f"## Start\nWait for user requirements, read SKILL.md, begin at initialization.")
+             f"## Invoke & Start\nInvoke this skill via the skill tool (name: {n}) to load SKILL.md; then wait for user requirements and begin at initialization.")
 def _detail(t):
     cand = [("- 流程节点：[branch/流程/](branch/流程/流程.md)", os.path.join(t, "branch", "流程", "流程.md")),
             ("- 约束兜底：[resistance/](resistance/resistance.md)", os.path.join(t, "resistance", "resistance.md"))]
@@ -44,7 +44,7 @@ def gen(target, name=None):
         f"# {n} — System Prompt (Universal)\n\n> {d} | Four formats in agent/\n\n" + z
         + "\n\n## Cross-Tool Mapping\n| Tool | File | Entry |\n|---|---|---|\n"
         f"| Claude Code | `CLAUDE.md` | `# {n}` role block |\n| Cursor/Windsurf | `.cursorrules` | `## Rules` |\n"
-        "| OpenAI Assistants | `instructions.md` | `## Goal` |\n| General | `agent_prompt.md` | This file |")
+        "| OpenAI Assistants | `instructions.md` | `## Goal` |\n| General | `agent_prompt.md` | This file |\n" f"| Skill-aware clients | `SKILL.md` frontmatter | call skill `{n}` via the skill tool |")
     print("[OK] SKILL.md + agent/ 已生成")
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("--target", required=True); ap.add_argument("--name"); a = ap.parse_args(); gen(a.target, a.name)
