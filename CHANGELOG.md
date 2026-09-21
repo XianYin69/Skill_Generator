@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
 - `resistance/git工作流约束/`：每步功能分支提交、双链辩论→合入 dev、九项审查通过→合入 main 并推送的分支策略。
 - git操作节点：补充操作要点（fetch/pull、`.gitignore` 必含 tmp/ 与 IDE 文件夹、功能分支→dev→main 流转）。
 - 初始化新增「git操作」节点；初始化/收尾 git操作 均加入「未 git init 则自动 init」与「推送前询问用户是否推送至远端」。
+- `gen_agent_prompt.py`：agent 四格式与 SKILL.md 增写「调用与开始」——通过 skill 工具按 name 调用本技能加载 SKILL.md；`agent_prompt.md` 跨工具映射新增 skill-aware 客户端入口行。
 
 ### Fixed
 - README：同步现状——补执行路径、agent/ 四格式、自更新接口写盘通道、resistance 新约束与 Git 工作流红线摘要。

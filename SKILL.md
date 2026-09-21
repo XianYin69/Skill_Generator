@@ -41,9 +41,9 @@ gen_agent_prompt / knowledge_browser / knowledge_download / knowledge_convert / 
 - 生成的 SKILL.md 必须含 YAML frontmatter；agent/ 四格式必须可直接注入 agent
 - Git 工作流：每步完成后提交到非 main/dev 的功能分支；功能审核通过→合并到 dev；整体审查通过→dev 合入 main 并推送；详见 [git工作流约束](resistance/git工作流约束/git工作流约束.md)
 
-## 开始
+## 调用与开始
 
-等待用户提出需求，读取本文件后从「初始化」开始。
+通过 skill 工具调用本技能（name: Skill_Generator）加载本文件；随后等待用户提出需求，从「初始化」开始执行。
 
 ## 详细流程
 
