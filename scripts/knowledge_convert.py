@@ -12,9 +12,13 @@ def _try(mod):
 def to_markdown(path):
     ext = os.path.splitext(path)[1].lower()
     if ext == ".pdf":
-        p = _try("pdfplumber")
-        if p:
-            with p.open(path) as d: return "\n".join((pg.extract_text() or "") for pg in d.pages)
+        if open(path, "rb").read(5) != b"%PDF-" or not (pl := _try("pdfplumber")):
+            raise SystemExit("[pdf\u4e0d\u53ef\u7528]\u975ePDF/\u9b54\u6570\u7f3a\u5931/\u7f3a pdfplumber: " + path)
+        with pl.open(path) as d:
+            md = "\n".join((pg.extract_text() or "") for pg in d.pages)
+        if not md.strip():
+            raise SystemExit("[pdf\u626b\u63cf\u4ef6]\u65e0\u6587\u672c\u5c42\uff0c\u6539\u7528\u591a\u6a21\u6001\u8bfb\u53d6: " + path)
+        return md
     if ext == ".docx":
         d = _try("docx")
         if d: return "\n".join(x.text for x in d.Document(path).paragraphs)
