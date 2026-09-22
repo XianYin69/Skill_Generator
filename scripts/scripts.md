@@ -16,6 +16,7 @@
 - 自更新接口：[`self_update.py`](self_update.py)（report/compare/release/clean）。
 - 网页流程图编辑器：[`flowchart_editor.py`](flowchart_editor.py) + [`flowchart_editor.html`](flowchart_editor.html)（需求模糊时复制到目标 skill 的 tmp 并启动）。
 - 五大机制脚本：[`garbage_collect.py`](garbage_collect.py)、[`context_compress.py`](context_compress.py)、[`logic_chain.py`](logic_chain.py)、[`process_chain.py`](process_chain.py)、[`penalty.py`](penalty.py)。
+- 沙盒机制脚本：[`sandbox.py`](sandbox.py)（固定路径 create/list/deliver/clean；交付与删除默认预览，`--yes` 执行）。
 
 ## 运行约定
 
