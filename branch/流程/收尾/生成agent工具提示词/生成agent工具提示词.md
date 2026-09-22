@@ -8,6 +8,6 @@ description 从用户提供的 SKILL.md frontmatter 读取；缺失时回退默�
 
 ## 决策分支
 
--  [完成skill开发](../完成skill开发/完成skill开发.md)
+-  [沙盒交付](../沙盒交付/沙盒交付.md)
 
 ---
