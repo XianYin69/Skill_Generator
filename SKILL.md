@@ -19,7 +19,7 @@ metadata:
 2. **双链辩论**：审查节点运行正反双链（logic_chain.py debate）。
 3. **返回机制**：审查失败记中断（process_chain.py interrupt），修复后 resume 返回。
 4. **惩罚熔断**：重试达 10 次即熔断，强制回退或求助用户。
-5. **垃圾回收**：tmp 在收尾后释放到目标 skill 并删除。
+5. **垃圾回收**：tmp 在收尾后释放到目标 skill 并删除；未指定目标工作目录时在固定路径沙盒作业，收尾交付到用户指定路径后删除沙盒。
 
 ## 执行路径
 
@@ -30,7 +30,7 @@ metadata:
 
 ## 可用工具（scripts/）
 
-gen_agent_prompt / knowledge_browser / knowledge_download / knowledge_convert / logic_chain / process_chain / garbage_collect / context_compress / penalty / self_update / check-links / flowchart_editor
+gen_agent_prompt / knowledge_browser / knowledge_download / knowledge_convert / logic_chain / process_chain / garbage_collect / context_compress / penalty / self_update / check-links / flowchart_editor / sandbox
 
 > `gen_agent_prompt` 同时生成目标 skill 的 `SKILL.md`（KiloCode YAML frontmatter）+ `agent/` 四格式提示词。
 ## 红线

@@ -7,7 +7,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Initial project setup
 - `flowchart/`：由 `Skill_Generator_stream.html` 转换而来的链表 JSON。
-- `SKILL.md`：KiloCode 格式入口（YAML frontmatter + 系统提示词，48 行）。
+- `SKILL.md`：KiloCode 格式入口（YAML frontmatter + 系统提示词，50 行）。
+- `scripts/sandbox.py`：固定路径沙盒脚本（create/list/deliver/clean，交付与删除默认预览、`--yes` 执行）。
 - `branch/流程/`：11 步骤（初始化/需求确认/经验查询/大纲构建/分支分析/脚本构建/知识库构建/约束编写/整体审查/收尾/修改流程），共 163 个节点子文件夹。
 - `scripts/`：11 个工具脚本（gen_agent_prompt/knowledge_*/logic_chain/process_chain/garbage_collect/context_compress/penalty/self_update/check-links/create-tmp），均 ≤ 50 行、英文名、MIT 依赖声明。
 - `resistance/`：5 大机制约束文档（垃圾回收/上下文压缩/逻辑链/过程链存取/惩罚）+ 审查约束 + 约束部分 + git工作流约束。
