@@ -4,7 +4,7 @@
 数据：tmp/penalty.json {name: score}。
 """
 import json, os, argparse
-
+if os.path.exists("SKILL.md"): raise SystemExit("拒绝：tmp 缓存不得写入 skill 目录（cwd 位于 skill 内）")
 FILE = os.path.join("tmp", "penalty.json")
 
 def _load():

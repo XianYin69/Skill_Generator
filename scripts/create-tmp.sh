@@ -3,6 +3,11 @@
 set -e
 
 TARGET="${1:-.}"
+# 红线：缓存文件不得写入 skill 目录——若 TARGET 根含 SKILL.md 则拒绝建 tmp
+if [ -f "$TARGET/SKILL.md" ]; then
+  echo "SKILL_DIR_GUARD: 不得在 skill 目录（$TARGET）内创建 tmp 缓存；请指定 skill 目录外的工作区 TARGET" >&2
+  exit 1
+fi
 TMP="$TARGET/tmp"
 
 mkdir -p "$TMP"/agent "$TMP"/branch "$TMP"/flowchart "$TMP"/references "$TMP"/resistance "$TMP"/update

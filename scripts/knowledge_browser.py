@@ -6,6 +6,7 @@
 import json, os, sys, time, hashlib, re
 from urllib.request import Request, urlopen
 from urllib.error import URLError
+if os.path.exists("SKILL.md"): raise SystemExit("拒绝：tmp 缓存不得写入 skill 目录（cwd 位于 skill 内）")
 
 ALLOWED_HOST = re.compile(
     r"(wikipedia\.org|arxiv\.org|pubmed|doi\.org|"

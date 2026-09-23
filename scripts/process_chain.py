@@ -8,6 +8,7 @@
   resume                        读取中断点并恢复（返回中断步骤）
 """
 import json, os, argparse
+if os.path.exists("SKILL.md"): raise SystemExit("拒绝：tmp 缓存不得写入 skill 目录（cwd 位于 skill 内）")
 STATE = os.path.join("tmp", "state")
 
 def _w(name, val):

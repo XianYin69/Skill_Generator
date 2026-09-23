@@ -5,6 +5,7 @@
 """
 import os, sys, json, time, shutil, hashlib, urllib.parse, re
 from urllib.request import urlopen, Request
+if os.path.exists("SKILL.md"): raise SystemExit("拒绝：tmp 缓存不得写入 skill 目录（cwd 位于 skill 内）")
 
 MIT_OK = re.compile(r"\bMIT\b", re.I)
 

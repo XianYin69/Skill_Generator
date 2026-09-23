@@ -3,6 +3,7 @@
 操作：删除 tmp 内 .tmp/.bak/.log/.part、空目录、超过保留期的下载；干跑预览用 --dry-run。
 """
 import os, sys, time, argparse
+if os.path.exists("SKILL.md"): raise SystemExit("拒绝：tmp 缓存不得写入 skill 目录（cwd 位于 skill 内）")
 
 EXT = (".tmp", ".bak", ".log", ".part", ".download")
 

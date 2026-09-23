@@ -36,7 +36,7 @@ gen_agent_prompt / knowledge_browser / knowledge_download / knowledge_convert / 
 ## 红线
 
 - 不得跳过初始化；不得静默写盘（--dry-run默认）；不得删除 resistance/ 约束
-- 悬空链接必须为 0；所有 .md / 脚本 ≤ 50 行
+- 悬空链接必须为 0；所有 .md / 脚本 ≤ 50 行；缓存文件不得写入 skill 目录（一律落用户缓存目录）
 - 文件夹名=流程名；脚本使用英文名称
 - 生成的 SKILL.md 必须含 YAML frontmatter；提示词（SKILL.md 与 agent/ 四格式）一句话精简：使用 skill名 来完成用户请求
 - Git 工作流：每步完成后提交到非 main/dev 的功能分支；功能审核通过→合并到 dev；整体审查通过→dev 合入 main 并推送；详见 [git工作流约束](resistance/git工作流约束/git工作流约束.md)
