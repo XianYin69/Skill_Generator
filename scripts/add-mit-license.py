@@ -29,15 +29,13 @@ def spots(t):
     return [os.path.join(t, "LICENSE")] + ([os.path.join(tmp, "LICENSE")] if os.path.isdir(tmp) else [])
 
 def run(target, holder, year, replace, yes):
+    if not os.path.isdir(target): return [{"path": target, "action": "error", "why": "目标工作空间不存在"}]
     out = []
     for p in spots(target):
-        if os.path.exists(p) and not replace:
-            out.append({"path": p, "action": "skip", "why": "已有 LICENSE"})
-        elif not yes:
-            out.append({"path": p, "action": "preview", "hint": "--yes 写入"})
+        if os.path.exists(p) and not replace: out.append({"path": p, "action": "skip", "why": "已有 LICENSE"})
+        elif not yes: out.append({"path": p, "action": "preview", "hint": "--yes 写入"})
         else:
-            open(p, "w", encoding="utf-8").write(MIT.format(year=year, holder=holder))
-            out.append({"path": p, "action": "written"})
+            open(p, "w", encoding="utf-8").write(MIT.format(year=year, holder=holder)); out.append({"path": p, "action": "written"})
     return out
 
 if __name__ == "__main__":
