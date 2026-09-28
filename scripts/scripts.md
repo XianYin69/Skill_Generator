@@ -18,6 +18,7 @@
 - 五大机制脚本：[`garbage_collect.py`](garbage_collect.py)、[`context_compress.py`](context_compress.py)、[`logic_chain.py`](logic_chain.py)、[`process_chain.py`](process_chain.py)、[`penalty.py`](penalty.py)。
 - 沙盒机制脚本：[`sandbox.py`](sandbox.py)（固定路径 create/list/deliver/clean；交付与删除默认预览，`--yes` 执行）。
 - 提示词与标准目录生成：[`gen_agent_prompt.py`](gen_agent_prompt.py)（目标 skill 的 SKILL.md＋agent/ 四格式＋asset/＋dependence/ 目录与说明文件）。
+- 初始化许可写入：[`add-mit-license.py`](add-mit-license.py)（MIT `LICENSE` 全文模板；根目录＋tmp 镜像，默认预览、`--yes` 写盘、已有文件不覆盖）。
 
 ## 运行约定
 
