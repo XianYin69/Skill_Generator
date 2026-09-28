@@ -22,6 +22,7 @@ All notable changes to this project will be documented in this file.
 - 初始化新增「git操作」节点；初始化/收尾 git操作 均加入「未 git init 则自动 init」与「推送前询问用户是否推送至远端」。
 - `gen_agent_prompt.py`：agent 四格式与 SKILL.md 增写「调用与开始」——通过 skill 工具按 name 调用本技能加载 SKILL.md；`agent_prompt.md` 跨工具映射新增 skill-aware 客户端入口行。
 - `gen_agent_prompt.py`：提示词直接精简为一句话「使用 skill名 来完成用户请求」——agent/ 四格式与 SKILL.md 正文仅保留该指令（SKILL.md frontmatter 与详细流程链接不变）；本仓库 agent/ 与 SKILL.md「调用与开始」同步重生成。
+- `gen_agent_prompt.py`：新技能标准目录新增 `asset/`（技能包资产）与 `dependence/`（依赖的技能包/软件/仓库地址）——生成目录与说明文件；SMS 包管理器（skill_manage_system 批26 pkg_deps.py）安装技能包时对 `dependence/` 执行与技能包相同的检查与净化（子包按来源标 trust、隔离拒装、软件/仓库地址仅审不自动下载执行）；SKILL.md/收尾/scripts.md 同口径。
 
 - 知识库构建新增「是否还能拓扑新的相关领域知识」决策节点：穷尽相关领域知识直到知识树到达不动点（无法再拓扑新领域）方可完成知识库构建；「建立知识文献与流程步骤的」改指该决策节点；SKILL.md 创建路径同步标注。
 

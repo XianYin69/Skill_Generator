@@ -11,7 +11,7 @@ import os, sys, json, time, argparse, shutil, filecmp
 _SKIP = ("state", "updates", ".git")
 
 def _log(entry):
-    os.makedirs("tmp/updates", exist_ok=True)
+    assert not os.path.exists("SKILL.md"), "拒绝：tmp 缓存不得写入 skill 目录（cwd 位于 skill 内）"; os.makedirs("tmp/updates", exist_ok=True)
     with open("tmp/updates/updates.jsonl", "a", encoding="utf-8") as f:
         f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 

@@ -1,5 +1,10 @@
 ﻿# create-tmp: 建立 tmp 目录及初始结构（Windows PowerShell）
 param([string]$Target = ".")
+# 红线：缓存文件不得写入 skill 目录——若 Target 根含 SKILL.md 则拒绝建 tmp
+if (Get-ChildItem -LiteralPath $Target -Filter "SKILL.md" -File -ErrorAction SilentlyContinue) {
+    Write-Error "SKILL_DIR_GUARD: 不得在 skill 目录（$Target）内创建 tmp 缓存；请指定 skill 目录外的工作区 -Target"
+    exit 1
+}
 $tmp = Join-Path $Target "tmp"
 $folders = @("agent", "branch", "flowchart", "references", "resistance", "update")
 New-Item -ItemType Directory -Path $tmp -Force | Out-Null
