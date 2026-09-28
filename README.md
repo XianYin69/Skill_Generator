@@ -11,7 +11,7 @@ Agent 级 Skill 生成工具：自动生成与迭代 Agent Skill，创建/修改
 
 - [`SKILL.md`](SKILL.md)：入口（YAML frontmatter，可直接注入 agent），子模块索引与阅读顺序。
 - [`agent/`](agent/)：四格式提示词（CLAUDE.md / .cursorrules / instructions.md / agent_prompt.md），由 `gen_agent_prompt.py` 生成。
-- [branch](branch/branch.md)：分支库；主干为 [`branch/流程/`](branch/流程/流程.md) 11 步骤、163 个节点。
+- [branch](branch/branch.md)：分支库；主干为 [`branch/流程/`](branch/流程/流程.md) 11 步骤、164 个节点（初始化含「加入MIT协议」）。
 - [scripts](scripts/scripts.md)：脚本库（logic_chain / process_chain / self_update / check-links 等，英文名、均 ≤ 50 行）。
 - [references](references/references.md)：知识库（文档、素材、流程图、信用评级）。
 - [resistance](resistance/resistance.md)：约束库/兜底（红线、降级策略、[git工作流约束](resistance/git工作流约束/git工作流约束.md)）。
