@@ -26,6 +26,8 @@ All notable changes to this project will be documented in this file.
 
 - 知识库构建新增「是否还能拓扑新的相关领域知识」决策节点：穷尽相关领域知识直到知识树到达不动点（无法再拓扑新领域）方可完成知识库构建；「建立知识文献与流程步骤的」改指该决策节点；SKILL.md 创建路径同步标注。
 
+- 初始化新增「加入MIT协议」节点（`branch/流程/初始化/加入MIT协议/`）＋`scripts/add-mit-license.py`：为工作空间根与 `tmp/` 写入 MIT `LICENSE`（默认预览、`--yes` 写盘、已有不覆盖、替换须 `--replace --yes` 并经用户确认）；检查tmp / 检查用户tmp / 建立tmp 三条入口统一汇入该节点再进 git操作；SKILL.md 工具清单与红线、scripts.md、README 同口径。
+
 ### Fixed
 - README：同步现状——补执行路径、agent/ 四格式、自更新接口写盘通道、resistance 新约束与 Git 工作流红线摘要。
 - `gen_agent_prompt.py`：可用工具清单动态枚举目标 `scripts/*.py`；SKILL.md 仅链接目标内存在路径；目标目录缺失自动创建。

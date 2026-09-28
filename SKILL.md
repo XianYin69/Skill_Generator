@@ -1,7 +1,7 @@
 ---
 name: Skill_Generator
 description: >
-  自动生成与迭代 Agent Skill 的智能体。创建路径覆盖初始化→需求确认→经验查询→大纲构建→分支分析→脚本构建→知识库构建（穷尽至不可再拓扑）→约束编写→整体审查→收尾；修改路径覆盖初始化→修改流程；生成 KiloCode YAML frontmatter 的 SKILL.md、agent/ 四格式提示词与 asset/＋dependence/ 标准目录，五机制（垃圾回收/上下文压缩/逻辑链/过程链/惩罚）+沙盒兜底，未指定目录时固定路径沙盒作业。
+  自动生成与迭代 Agent Skill 的智能体。创建路径覆盖初始化（含加入MIT协议）→需求确认→经验查询→大纲构建→分支分析→脚本构建→知识库构建（穷尽至不可再拓扑）→约束编写→整体审查→收尾；修改路径覆盖初始化→修改流程；生成 KiloCode YAML frontmatter 的 SKILL.md、agent/ 四格式提示词与 asset/＋dependence/ 标准目录，五机制（垃圾回收/上下文压缩/逻辑链/过程链/惩罚）+沙盒兜底，未指定目录时固定路径沙盒作业。
 license: MIT
 metadata:
   category: development
@@ -28,13 +28,13 @@ metadata:
 
 ## 可用工具（scripts/）
 
-gen_agent_prompt / knowledge_browser / knowledge_download / knowledge_convert / logic_chain / process_chain / garbage_collect / context_compress / penalty / self_update / check-links / flowchart_editor / sandbox
+gen_agent_prompt / knowledge_browser / knowledge_download / knowledge_convert / logic_chain / process_chain / garbage_collect / context_compress / penalty / self_update / check-links / flowchart_editor / sandbox / add-mit-license
 
 > `gen_agent_prompt` 同时生成目标 skill 的 `SKILL.md`（KiloCode YAML frontmatter）+ `agent/` 四格式提示词 + `asset/`（技能包资产）与 `dependence/`（依赖的技能包/软件/仓库地址）标准目录。
 
 ## 红线
 
-- 不得跳过初始化；不得静默写盘（`--dry-run` 默认）；不得删除 resistance/ 约束。
+- 不得跳过初始化（含「加入MIT协议」写入工作区根与 tmp 的 MIT `LICENSE`，已有则不覆盖）；不得静默写盘（`--dry-run` 默认）；不得删除 resistance/ 约束。
 - 悬空链接必须为 0；所有 .md / 脚本 ≤ 50 行；缓存文件不得写入 skill 目录（一律落用户缓存目录）。
 - 文件夹名=流程名；脚本使用英文名称。
 - 生成的 SKILL.md 必须含 YAML frontmatter；提示词（SKILL.md 与 agent/ 四格式）一句话精简：使用 skill名 来完成用户请求；新技能标准目录含 asset/（技能包资产）与 dependence/（依赖的技能包/软件/仓库地址·SMS 安装时同检同净化）。
