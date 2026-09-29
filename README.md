@@ -13,6 +13,8 @@ Agent 级 Skill 生成工具：自动生成与迭代 Agent Skill，创建/修改
 - [`agent/`](agent/)：四格式提示词（CLAUDE.md / .cursorrules / instructions.md / agent_prompt.md），由 `gen_agent_prompt.py` 生成。
 - [branch](branch/branch.md)：分支库；主干为 [`branch/流程/`](branch/流程/流程.md) 11 步骤、164 个节点（初始化含「加入MIT协议」）。
 - [scripts](scripts/scripts.md)：脚本库（logic_chain / process_chain / self_update / check-links 等，英文名、均 ≤ 50 行）。
+- [dependence](dependence/dependence.md)：依赖清单＋`deps.json`（每条依赖必附 `source_url` 原始链接，`python scripts/lint-deps.py` 校验）。
+- [planned_tasks](planned_tasks/README.md)：计划任务声明目录（一任务一文件 `pt-<skill>-<slug>.json`，到期由 SMS 调度器执行）。
 - [references](references/references.md)：知识库（文档、素材、流程图、信用评级）。
 - [resistance](resistance/resistance.md)：约束库/兜底（红线、降级策略、[git工作流约束](resistance/git工作流约束/git工作流约束.md)）。
 - [update](update/update.md)：自更新接口（report / compare / release / clean），本 skill 本体唯一写盘通道。
