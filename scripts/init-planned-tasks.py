@@ -1,5 +1,5 @@
 """init-planned-tasks.py — 初始化写入 planned_tasks/（README.md＋template.json）；默认预览，`--yes` 写盘；已有文件不覆盖。"""
-import argparse, json, os, shutil
+import argparse, json, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "asset", "planned_tasks")
