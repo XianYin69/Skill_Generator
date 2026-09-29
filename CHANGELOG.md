@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- 初始化节点「建立计划任务」：技能目录写入 `planned_tasks/`（README.md＋template.json），schema 与 SMS 读取端一致；
+  一任务一文件 `pt-<skill>-<slug>.json`、原子写、status 五值、本地 ISO、到期由 SMS 调度器执行挂 session 链、删除即注销；
+  脚本 `init-planned-tasks.py`（默认预览·`--yes` 写盘·不覆盖）；模板入 `asset/planned_tasks/`；create-tmp 与 gen_agent_prompt 同步。
+- 脚本构建节点「依赖必须附原始链接」：`dependence/deps.json` 每条必附 `source_url`（原始仓库/发布页·本地 `local://<id>`），
+  字段 `name/source_url/license/version/install/checked_at`；`lint-deps.py` 缺项即 rc=1；`审查约束` 增第 7、8 条；
+  标准目录模板拆出 `pkg_templates.py`（入口＋模块·守 ≤50 行红线）。
 
 ### Added
 - Initial project setup
