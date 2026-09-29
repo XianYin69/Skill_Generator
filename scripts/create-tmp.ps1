@@ -6,7 +6,7 @@ if (Get-ChildItem -LiteralPath $Target -Filter "SKILL.md" -File -ErrorAction Sil
     exit 1
 }
 $tmp = Join-Path $Target "tmp"
-$folders = @("agent", "branch", "flowchart", "references", "resistance", "update")
+$folders = @("agent", "branch", "flowchart", "references", "resistance", "update", "planned_tasks")
 New-Item -ItemType Directory -Path $tmp -Force | Out-Null
 foreach ($f in $folders) { New-Item -ItemType Directory -Path (Join-Path $tmp $f) -Force | Out-Null }
 $ruleEdit = @'

@@ -1,0 +1,24 @@
+{
+  "dependencies": [
+    {
+      "name": "python",
+      "type": "software",
+      "source_url": "https://github.com/python/cpython",
+      "license": "PSF-2.0",
+      "version": ">=3.9（脚本仅用标准库）",
+      "install": "system",
+      "checked_at": "2026-09-29T23:55",
+      "source_url_status": "verified"
+    },
+    {
+      "name": "git",
+      "type": "software",
+      "source_url": "https://github.com/git/git",
+      "license": "GPL-2.0",
+      "version": "system",
+      "install": "system",
+      "checked_at": "2026-09-29T23:55",
+      "source_url_status": "verified"
+    }
+  ]
+}

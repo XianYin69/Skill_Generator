@@ -16,6 +16,7 @@
 | `references/` | `tmp/references/` | 子目录 | 知识库 |
 | `resistance/` | `tmp/resistance/` | 子目录 | 约束库 / 兜底 |
 | `update/` | `tmp/update/` | 子目录 | 自更新组件 |
+| `planned_tasks/` | `tmp/planned_tasks/` | 子目录 | 计划任务声明（README.md＋template.json·由 [建立计划任务](../建立计划任务/建立计划任务.md) 写入） |
 
 ## 系统指令
 
@@ -25,7 +26,7 @@
 脚本核心操作：
 
 1. 在目标工作空间建立 `tmp/` 目录。
-2. 在 `tmp/` 下建立六个子目录：`agent/`、`branch/`、`flowchart/`、`references/`、`resistance/`、`update/`。
+2. 在 `tmp/` 下建立七个子目录：`agent/`、`branch/`、`flowchart/`、`references/`、`resistance/`、`update/`、`planned_tasks/`。
 3. 在 `tmp/` 下写入 `rule_edit.md`（内容与项目根目录 `rule_edit.md` 完全一致）。
 4. 在 `tmp/` 下写入 `.gitignore`（忽略 `./tmp`）。
 5. 在 `tmp/` 内执行 `git init` 初始化仓库。
@@ -37,4 +38,4 @@
 
 ## 下一步
 
-进入 [加入MIT协议](../加入MIT协议/加入MIT协议.md)（`LICENSE` 由该节点写入，本脚本不写许可）
+进入 [加入MIT协议](../加入MIT协议/加入MIT协议.md)（`LICENSE` 由该节点写入，本脚本不写许可；`planned_tasks/` 由下一节点 [建立计划任务](../建立计划任务/建立计划任务.md) 写入）
