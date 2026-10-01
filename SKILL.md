@@ -28,9 +28,9 @@ metadata:
 
 ## 可用工具（scripts/）
 
-gen_agent_prompt / knowledge_browser / knowledge_download / knowledge_convert / logic_chain / process_chain / garbage_collect / context_compress / penalty / self_update / check-links / flowchart_editor / sandbox / add-mit-license / init-planned-tasks / lint-deps
+scripts/gen_agent_prompt.py / scripts/knowledge_browser.py / scripts/knowledge_download.py / scripts/knowledge_convert.py / scripts/logic_chain.py / scripts/process_chain.py / scripts/garbage_collect.py / scripts/context_compress.py / scripts/penalty.py / scripts/self_update.py / scripts/check-links.py / scripts/flowchart_editor.py / scripts/sandbox.py / scripts/add-mit-license.py / scripts/init-planned-tasks.py / scripts/lint-deps.py
 
-> `gen_agent_prompt` 同时生成目标 skill 的 `SKILL.md`（KiloCode YAML frontmatter）+ `agent/` 四格式提示词 + `asset/`（技能包资产）与 `dependence/`（依赖的技能包/软件/仓库地址·每条依赖 deps.json 必附 `source_url` 原始链接）与 `planned_tasks/`（计划任务声明·到期由 SMS 调度器执行）标准目录；`gen_agent_prompt` 同时落 `dependence/deps.json` 骨架。
+> `scripts/gen_agent_prompt.py` 同时生成目标 skill 的 `SKILL.md`（KiloCode YAML frontmatter）+ `agent/` 四格式提示词 + `asset/`（技能包资产）与 `dependence/`（依赖的技能包/软件/仓库地址·每条依赖 deps.json 必附 `source_url` 原始链接）与 `planned_tasks/`（计划任务声明·到期由 SMS 调度器执行）标准目录；`scripts/gen_agent_prompt.py` 同时落 `dependence/deps.json` 骨架。
 
 ## 红线
 
