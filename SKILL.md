@@ -35,7 +35,7 @@ scripts/gen_agent_prompt.py / scripts/knowledge_browser.py / scripts/knowledge_d
 ## 红线
 
 - 不得跳过初始化（含「加入MIT协议」写入工作区根与 tmp 的 MIT `LICENSE`、「建立计划任务」写入 `planned_tasks/`（README.md＋template.json），已有则不覆盖）；不得静默写盘（`--dry-run` 默认）；不得删除 resistance/ 约束。
-- 悬空链接必须为 0；所有 .md / 脚本 ≤ 50 行；缓存文件不得写入 skill 目录（一律落用户缓存目录）。
+- 悬空链接必须为 0；所有 .md ≤ 50 行（50 行红线只约束 markdown 文本；脚本 .py/.ps1/.sh/.cmd 不限行数，但仍禁裸 except、print 调试残留、>100 字符长行、超长函数）；缓存文件不得写入 skill 目录（一律落用户缓存目录）。
 - 文件夹名=流程名；脚本使用英文名称。
 - 依赖必须附原始链接：`dependence/deps.json` 每条字段 `name/source_url/license/version/install/checked_at`，`source_url` 为 GitHub/GitLab/官方仓库或发布页原始链接（本地技能 `local://<skill-id>`）；缺 `source_url` 即判不合格，`lint-deps.py` 报错退出；先网页检索定位原始链接再写清单。
 - 计划任务：一任务一文件 `pt-<skill>-<slug>.json`，schema 字段名与 SMS 读取端一致不得改动；原子写；`status` 仅 pending/running/done/paused/failed；时间一律本地 ISO；到期由 SMS 调度器读取执行并挂 session 关联链，**技能自身不得自行执行计划任务**；删除文件即注销。

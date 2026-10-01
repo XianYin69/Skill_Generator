@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Changed
+- 用户裁定：50 行红线只约束 markdown 文本；脚本 `.py/.ps1/.sh/.cmd` 不限行数（仍禁裸 except、print 调试残留、>100 字符长行、超长函数）。
+- 同步改写 SKILL.md、README.md、scripts/scripts.md、rule_edit.md、references/references.md、resistance 两处与两个流程节点；生成模板未内嵌该红线，无需改。
+
 ### Added
 - 初始化节点「建立计划任务」：技能目录写入 `planned_tasks/`（README.md＋template.json），schema 与 SMS 读取端一致；
   一任务一文件 `pt-<skill>-<slug>.json`、原子写、status 五值、本地 ISO、到期由 SMS 调度器执行挂 session 链、删除即注销；

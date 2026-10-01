@@ -16,7 +16,7 @@
 python scripts/add-mit-license.py --target <工作空间> [--holder 版权方] [--yes]
 ```
 
-脚本：[`add-mit-license.py`](../../../../scripts/add-mit-license.py)（MIT 全文模板，≤50 行）
+脚本：[`add-mit-license.py`](../../../../scripts/add-mit-license.py)（MIT 全文模板；脚本不受 50 行限制，50 行红线只约束 markdown）
 
 ## 分支
 
