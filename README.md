@@ -26,7 +26,7 @@ Agent 级 Skill 生成工具：自动生成与迭代 Agent Skill，创建/修改
 - 悬空链接必须为 0（增删移后运行 `python scripts/check-links.py`）；所有 .md ≤ 50 行（50 行红线只约束 markdown 文本；脚本 .py/.ps1/.sh/.cmd 不限行数，但仍禁裸 except、print 调试残留、>100 字符长行、超长函数）。
 - 不得静默写盘：先在 `tmp/` 镜像变更，再 compare → release 释放；禁止删除 resistance/ 约束。
 - 审查节点运行正反双链辩论（logic_chain.py debate）；重试达 10 次触发惩罚熔断。
-- Git 工作流：每步提交到非 main/dev 的功能分支；功能审核通过→dev；整体审核通过→main 并推送；远端有更新先 pull。详见 [git工作流约束](resistance/git工作流约束/git工作流约束.md)。
+- Git 工作流：每步提交到非 main/dev 的功能分支；功能审核通过→dev；整体审核通过→main 并推送；远端有更新先 pull；推送前判定可见性（疑似违规/涉密须 PRIVATE，详见 [git工作流约束](resistance/git工作流约束/git工作流约束.md)第 10 条）。
 
 ## 编辑规则
 
