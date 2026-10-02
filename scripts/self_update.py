@@ -8,7 +8,7 @@
 约束见 resistance/惩罚机制、resistance/垃圾回收机制。
 """
 import os, sys, json, time, argparse, shutil, filecmp
-_SKIP = ("state", "updates", ".git")
+_SKIP = ("state", "updates", ".git", "__pycache__", ".pytest_cache")
 
 def _log(entry):
     assert not os.path.exists("SKILL.md"), "拒绝：tmp 缓存不得写入 skill 目录（cwd 位于 skill 内）"; os.makedirs("tmp/updates", exist_ok=True)
