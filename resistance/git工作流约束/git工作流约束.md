@@ -10,10 +10,16 @@
 4. **整体项目审核通过后推送**：九项审查标准全部通过后，将 `dev` 合并到 `main`，并将 `main` 与 `dev` 一起推送至远端（`git push origin main dev`）。
 5. **禁止直写 main/dev**：所有变更必须经由功能分支进入 `dev`，`main` 与 `dev` 不接受直接 commit。
 6. **重试熔断**：任一审查步骤失败且重试次数达 10 次，触发惩罚机制熔断（penalty.py），强制回退当前功能分支或向用户求助。
-7. **忽略清单**：`.gitignore` 必须包含 `tmp/` 与 IDE 文件夹（`.idea/`、`.vscode/`、`.kilo/` 等）；暂存前核对 `git status`，发现临时产物或 IDE 文件被跟踪，先补 ignore 再提交。
+7. **忽略清单**：`.gitignore` 必须包含 `tmp/` 与 IDE 文件夹（`.idea/`、`.vscode/`、`.kilo/` 等）；暂存前核对 `git status`，发现临时产物或 IDE 文件被跟踪，先补 ignore 再提交。例外：`private/`（附属技能的独立私有伴生仓工作树，见第 11 条）允许被本体仓 ignore，但不得因此让附属技能脱离版本控制。
 8. **自动 git init**：操作仓库前检查是否已 `git init`（存在 `.git/` 即视为已初始化）；未初始化则自动执行 `git init`，不得跳过。
 9. **推送前确认**：推送至远端前必须询问用户是否推送；用户确认后才执行 `git push`，未确认不得推送。
 10. **仓库可见性**：存在侵犯他人著作权、损害人类社会、涉嫌违法等违规内容的可能，或含用户需要保密的部分的仓库，其可见性必须为 PRIVATE；其他仓库一律为 PUBLIC。建仓/推送前须先判定可见性，判定不了时询问用户，不得擅自设为 PUBLIC。
+11. **附属技能双仓模型（attached sub-skill）**：宿主技能的附属/私有子技能（命名前缀如 `software_use_only-*`、`*_only-*`）**同样必须进 git**，只是进的是**独立的私有伴生仓库**——「附属」＝换仓，不等于「不入库」。
+    - 附属技能照常 `git init` / commit / push 到远端，禁止以「附属」「私有」「本地专用」为由不入库；
+    - 承载方式：宿主技能目录下的 `private/` 作为**独立 git 仓的工作树**（自带 `.git` + `remote`），其远端仓库可见性必须为 **PRIVATE**；
+    - 宿主本体仓可见性为 **PUBLIC**，其 `.gitignore` 必须忽略 `private/` 内容、仅保留 `private/.gitkeep`；附属内容一旦出现在本体公开仓即视为泄漏（`E_LEAK_TO_PUBLIC`）；
+    - 可见性由「仓库属性 + `register.json` 的 `visibility/parent/publish` + 脚本校验」承载，**禁止在 SKILL.md frontmatter 自造 `visibility` 字段**（`gen_agent_prompt.py` 只认 `name/description/license/metadata`，重生成会被抹掉）；
+    - 注册（`register.json`）≠ 发布（进私有伴生仓）：两者都要做，只注册不发布视为未完成。
 
 ## 违规后果
 
@@ -23,7 +29,8 @@
 - 漏配 ignore：tmp 过程工件与 IDE 配置入库，污染提交历史；
 - 未 init 即操作：git 命令失效，提交/合并无法执行；
 - 未确认即推送：未经用户同意将提交发布到远端；
-- 违规/涉密仓库设为 PUBLIC：侵权与泄密扩散，不可撤回。
+- 违规/涉密仓库设为 PUBLIC：侵权与泄密扩散，不可撤回；
+- 附属技能不入库或误推本体公开仓：附属能力丢失不可回滚，或私有内容外泄（`E_LEAK_TO_PUBLIC`），均不可撤回。
 
 ## 相关
 
