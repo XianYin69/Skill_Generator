@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Changed
+- git 工作流约束新增第 11 条「附属技能双仓模型」：附属/私有子技能照常进 git，但进 `private/` 独立私有伴生仓（PRIVATE）；本体仓 PUBLIC 且 ignore `private/` 仅留 `.gitkeep`，误入公开仓记 E_LEAK_TO_PUBLIC；可见性由仓库属性 + register.json 的 visibility/parent/publish + 脚本校验承载，禁止 frontmatter 自造 visibility；注册≠发布；第 7 条补 private/ 例外；违规后果补一条；SKILL/README/git操作 同步。
 - 用户裁定：50 行红线只约束 markdown 文本；脚本 `.py/.ps1/.sh/.cmd` 不限行数（仍禁裸 except、print 调试残留、>100 字符长行、超长函数）。
 - 同步改写 SKILL.md、README.md、scripts/scripts.md、rule_edit.md、references/references.md、resistance 两处与两个流程节点；生成模板未内嵌该红线，无需改。
 - git 工作流约束新增第 10 条「仓库可见性」：疑似违规或含保密内容的仓库必须 PRIVATE，其余一律 PUBLIC，建仓/推送前先判定、判定不了问用户；违规后果补一条，SKILL.md、README.md、收尾 git操作 节点各同步一句。
@@ -16,7 +17,6 @@ All notable changes to this project will be documented in this file.
   字段 `name/source_url/license/version/install/checked_at`；`lint-deps.py` 缺项即 rc=1；`审查约束` 增第 7、8 条；
   标准目录模板拆出 `pkg_templates.py`（入口＋模块·守 ≤50 行红线）。
 
-### Added
 - Initial project setup
 - `flowchart/`：由 `Skill_Generator_stream.html` 转换而来的链表 JSON。
 - `SKILL.md`：KiloCode 格式入口（YAML frontmatter + 系统提示词，50 行）。
