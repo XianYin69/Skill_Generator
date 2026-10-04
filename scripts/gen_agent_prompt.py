@@ -25,11 +25,12 @@ def _detail(t):
     c = [a for a, b in cand if os.path.exists(b)]
     return ("\n\n## 详细流程\n" + "\n".join(c)) if c else ""
 
-def gen(target, name=None):
-    os.makedirs(target, exist_ok=True); n = name or os.path.basename(os.path.normpath(target)); p = _p(target)
+def gen(target, name=None, version="0.1.0"):
+    """批29 P3-11：version 为必填元数据（缺省 0.1.0）——巡检据此做「本地版本 vs 上游版本」比对。"""
+    os.makedirs(target, exist_ok=True); n = name or os.path.basename(os.path.normpath(target)); p = _p(target); v = str(version or "0.1.0")
     z, e = _zh(n), _en(n)
     open(os.path.join(target, "SKILL.md"), "w", encoding="utf-8").write(
-        f"---\nname: {n}\ndescription: >\n  {p}\nlicense: MIT\nmetadata:\n  category: development\n---\n\n"
+        f"---\nname: {n}\nversion: {v}\ndescription: >\n  {p}\nlicense: MIT\nmetadata:\n  category: development\n---\n\n"
         + z + _detail(target) + "\n")
     out = os.path.join(target, "agent"); os.makedirs(out, exist_ok=True)
     open(os.path.join(out, "CLAUDE.md"), "w", encoding="utf-8").write(z)
@@ -40,5 +41,5 @@ def gen(target, name=None):
     print("[OK] SKILL.md + agent/ + asset/ + dependence/ + planned_tasks/ 已生成（提示词一句话：使用 skill名 来完成用户请求）")
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser(); ap.add_argument("--target", required=True); ap.add_argument("--name")
-    a = ap.parse_args(); gen(a.target, a.name)
+    ap = argparse.ArgumentParser(); ap.add_argument("--target", required=True); ap.add_argument("--name"); ap.add_argument("--version", default="0.1.0")
+    a = ap.parse_args(); gen(a.target, a.name, a.version)

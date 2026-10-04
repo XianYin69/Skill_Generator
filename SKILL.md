@@ -1,5 +1,6 @@
 ---
 name: Skill_Generator
+version: 0.1.0
 description: >
   自动生成与迭代 Agent Skill 的智能体。创建路径覆盖初始化（含加入MIT协议、建立计划任务）→需求确认→经验查询→大纲构建→分支分析→脚本构建→知识库构建（穷尽至不可再拓扑）→约束编写→整体审查→收尾；修改路径覆盖初始化→修改流程；生成 KiloCode YAML frontmatter 的 SKILL.md、agent/ 四格式提示词与 asset/＋dependence/＋planned_tasks/ 标准目录，五机制（垃圾回收/上下文压缩/逻辑链/过程链/惩罚）+沙盒兜底，未指定目录时固定路径沙盒作业。
 license: MIT
