@@ -6,11 +6,13 @@ description: >
 license: MIT
 metadata:
   category: development
+scope: >
+  本技能只用于智能体技能开发（创建/修改 Agent Skill，产出 SKILL.md、agent/、asset/、dependence/、planned_tasks/ 目录，不含具体业务软件开发）。
 ---
 
 # Skill_Generator
 
-使用 `Skill_Generator` skill 来完成用户请求。自动生成与迭代 Agent Skill 的智能体。
+使用 `Skill_Generator` skill 来完成用户请求。
 
 ## 工作原则
 
