@@ -1,0 +1,21 @@
+{
+  "id": "pt-Skill_Generator-inspect-collector-v2",
+  "title": "A2 巡检：每日检查 Skill_Generator 规范合规性",
+  "skill": "Skill_Generator",
+  "input": "运行 inspect_collector_v2.py，检查 markdown 行数、悬空链接、template.json 结构",
+  "schedule": {
+    "mode": "interval",
+    "every_min": 1440
+  },
+  "session": {
+    "kind": "cron",
+    "key": "Skill_Generator:pt-Skill_Generator-inspect-collector-v2"
+  },
+  "status": "pending",
+  "created": "2026-10-17T10:38:34.673216",
+  "next_run": "2026-10-17T10:38:34.673232",
+  "last_run": null,
+  "runs": 0,
+  "notify": "shell",
+  "depends": []
+}

@@ -43,7 +43,8 @@ scripts/gen_agent_prompt.py / scripts/knowledge_browser.py / scripts/knowledge_d
 - 依赖必须附原始链接：`dependence/deps.json` 每条字段 `name/source_url/license/version/install/checked_at`，`source_url` 为 GitHub/GitLab/官方仓库或发布页原始链接（本地技能 `local://<skill-id>`）；缺 `source_url` 即判不合格，`lint-deps.py` 报错退出；先网页检索定位原始链接再写清单。
 - 计划任务：一任务一文件 `pt-<skill>-<slug>.json`，schema 字段名与 SMS 读取端一致不得改动；原子写；`status` 仅 pending/running/done/paused/failed；时间一律本地 ISO；到期由 SMS 调度器读取执行并挂 session 关联链，**技能自身不得自行执行计划任务**；删除文件即注销。
 - 生成的 SKILL.md 必须含 YAML frontmatter；提示词（SKILL.md 与 agent/ 四格式）一句话精简：使用 skill名 来完成用户请求；新技能标准目录含 asset/（技能包资产）与 dependence/（依赖的技能包/软件/仓库地址·SMS 安装时同检同净化）。
-- Git 工作流：每步完成后提交到非 main/dev 的功能分支；功能审核通过→合并到 dev；整体审查通过→dev 合入 main 并推送；建仓/推送前判定仓库可见性（疑似违规或涉密须 PRIVATE，详见 [git工作流约束](resistance/git工作流约束/git工作流约束.md)第 10 条；附属/私有子技能走双仓模型（本体仓 PUBLIC 且 ignore `private/`，附属内容进独立私有伴生仓 PRIVATE，禁止不入库或误推公开仓）见第 11 条）。
+- Git 工作流：每步完成后提交到非 main/dev 的功能分支；功能审核通过→合并到 dev；整体审查通过→dev 合入 main 并推送至远端（`git push origin main dev`）；**创建的技能必须推送至远端，不得仅保留本地提交**；建仓/推送前判定仓库可见性（疑似违规或涉密须 PRIVATE，详见 [git工作流约束](resistance/git工作流约束/git工作流约束.md)第 10 条；附属/私有子技能走双仓模型（本体仓 PUBLIC 且 ignore `private/`，附属内容进独立私有伴生仓 PRIVATE，禁止不入库或误推公开仓）见第 11 条）。
+- **依赖镜像原则**：`dependence/deps.json` 中每条依赖除保留 `source_url`（上游原始链接）外，**必须同时记录技能包在远端/本地的分发位置**（远端 URL 优先，本地 fallback 用 `local://<skill-id>`）；SMS 安装时同检同净化，确保离线环境可溯源。
 
 ## 详细流程
 
