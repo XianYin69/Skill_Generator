@@ -1,50 +1,11 @@
-# Changelog
+# CHANGELOG（变更日志）
 
-All notable changes to this project will be documented in this file.
+> 本文件遵循 [rule_edit.md](rule_edit.md) 编辑规则；变更须先走 `tmp/` 镜像 + `compare → release`，禁止直接写本体。
 
-## [Unreleased]
-### Changed
-- git 工作流约束新增第 11 条「附属技能双仓模型」：附属/私有子技能照常进 git，但进 `private/` 独立私有伴生仓（PRIVATE）；本体仓 PUBLIC 且 ignore `private/` 仅留 `.gitkeep`，误入公开仓记 E_LEAK_TO_PUBLIC；可见性由仓库属性 + register.json 的 visibility/parent/publish + 脚本校验承载，禁止 frontmatter 自造 visibility；注册≠发布；第 7 条补 private/ 例外；违规后果补一条；SKILL/README/git操作 同步。
-- 用户裁定：50 行红线只约束 markdown 文本；脚本 `.py/.ps1/.sh/.cmd` 不限行数（仍禁裸 except、print 调试残留、>100 字符长行、超长函数）。
-- 同步改写 SKILL.md、README.md、scripts/scripts.md、rule_edit.md、references/references.md、resistance 两处与两个流程节点；生成模板未内嵌该红线，无需改。
-- git 工作流约束新增第 10 条「仓库可见性」：疑似违规或含保密内容的仓库必须 PRIVATE，其余一律 PUBLIC，建仓/推送前先判定、判定不了问用户；违规后果补一条，SKILL.md、README.md、收尾 git操作 节点各同步一句。
-
+## [2026-10-17]
 ### Added
-- 初始化节点「建立计划任务」：技能目录写入 `planned_tasks/`（README.md＋template.json），schema 与 SMS 读取端一致；
-  一任务一文件 `pt-<skill>-<slug>.json`、原子写、status 五值、本地 ISO、到期由 SMS 调度器执行挂 session 链、删除即注销；
-  脚本 `init-planned-tasks.py`（默认预览·`--yes` 写盘·不覆盖）；模板入 `asset/planned_tasks/`；create-tmp 与 gen_agent_prompt 同步。
-- 脚本构建节点「依赖必须附原始链接」：`dependence/deps.json` 每条必附 `source_url`（原始仓库/发布页·本地 `local://<id>`），
-  字段 `name/source_url/license/version/install/checked_at`；`lint-deps.py` 缺项即 rc=1；`审查约束` 增第 7、8 条；
-  标准目录模板拆出 `pkg_templates.py`（入口＋模块·守 ≤50 行红线）。
+- 新增变更日志规范：每次修改/新增/删除操作完成后必须在根目录 `CHANGELOG.md` 记录变更（日期、改动范围、涉及文件、违反后果）；变更日志不可缺失、不可跳过、不可事后补录（漏记视为违规）。
+- 同步更新 `rule_edit.md`（新增三、变更日志规范）、`SKILL.md`（红线新增变更日志规范）、`scripts/scripts.md`（新增 pkg_templates.py / init-planned-tasks.py / lint-deps.py 索引）、`scripts/pkg_templates.py`（确保双指向依赖逻辑完整）。
 
-- Initial project setup
-- `flowchart/`：由 `Skill_Generator_stream.html` 转换而来的链表 JSON。
-- `SKILL.md`：KiloCode 格式入口（YAML frontmatter + 系统提示词，50 行）。
-- `scripts/sandbox.py`：固定路径沙盒脚本（create/list/deliver/clean，交付与删除默认预览、`--yes` 执行）。
-- `branch/流程/`：11 步骤（初始化/需求确认/经验查询/大纲构建/分支分析/脚本构建/知识库构建/约束编写/整体审查/收尾/修改流程），共 163 个节点子文件夹。
-- `scripts/`：11 个工具脚本（gen_agent_prompt/knowledge_*/logic_chain/process_chain/garbage_collect/context_compress/penalty/self_update/check-links/create-tmp），均 ≤ 50 行、英文名、MIT 依赖声明。
-- `resistance/`：5 大机制约束文档（垃圾回收/上下文压缩/逻辑链/过程链存取/惩罚）+ 审查约束 + 约束部分 + git工作流约束。
-- `update/update.md`：自更新接口定义（report/compare/release/clean）。
-- `agent/`：四格式 agent 提示词（CLAUDE.md/.cursorrules/instructions.md/agent_prompt.md）。
-- `gen_agent_prompt.py`：自动生成目标 skill 的 KiloCode 格式 SKILL.md + agent/ 四格式提示词。
-- 需求确认新增「判断是否需要物理输入交互」节点（视觉/听觉/网页交互检测）。
-- 脚本构建新增「物理输入网页交互脚本构建」节点（vision_input.py/audio_input.py/browser_interaction.py）。
-- `resistance/git工作流约束/`：每步功能分支提交、双链辩论→合入 dev、九项审查通过→合入 main 并推送的分支策略。
-- git操作节点：补充操作要点（fetch/pull、`.gitignore` 必含 tmp/ 与 IDE 文件夹、功能分支→dev→main 流转）。
-- 初始化新增「git操作」节点；初始化/收尾 git操作 均加入「未 git init 则自动 init」与「推送前询问用户是否推送至远端」。
-- `gen_agent_prompt.py`：agent 四格式与 SKILL.md 增写「调用与开始」——通过 skill 工具按 name 调用本技能加载 SKILL.md；`agent_prompt.md` 跨工具映射新增 skill-aware 客户端入口行。
-- `gen_agent_prompt.py`：提示词直接精简为一句话「使用 skill名 来完成用户请求」——agent/ 四格式与 SKILL.md 正文仅保留该指令（SKILL.md frontmatter 与详细流程链接不变）；本仓库 agent/ 与 SKILL.md「调用与开始」同步重生成。
-- `gen_agent_prompt.py`：新技能标准目录新增 `asset/`（技能包资产）与 `dependence/`（依赖的技能包/软件/仓库地址）——生成目录与说明文件；SMS 包管理器（skill_manage_system 批26 pkg_deps.py）安装技能包时对 `dependence/` 执行与技能包相同的检查与净化（子包按来源标 trust、隔离拒装、软件/仓库地址仅审不自动下载执行）；SKILL.md/收尾/scripts.md 同口径。
-
-- 知识库构建新增「是否还能拓扑新的相关领域知识」决策节点：穷尽相关领域知识直到知识树到达不动点（无法再拓扑新领域）方可完成知识库构建；「建立知识文献与流程步骤的」改指该决策节点；SKILL.md 创建路径同步标注。
-
-- 初始化新增「加入MIT协议」节点（`branch/流程/初始化/加入MIT协议/`）＋`scripts/add-mit-license.py`：为工作空间根与 `tmp/` 写入 MIT `LICENSE`（默认预览、`--yes` 写盘、已有不覆盖、替换须 `--replace --yes` 并经用户确认、目标工作空间不存在报 `action=error` 不写盘）；检查tmp / 检查用户tmp / 建立tmp 三条入口统一汇入该节点再进 git操作；SKILL.md 工具清单与红线、scripts.md、README 同口径。
-
-### Fixed
-- README：同步现状——补执行路径、agent/ 四格式、自更新接口写盘通道、resistance 新约束与 Git 工作流红线摘要。
-- `gen_agent_prompt.py`：可用工具清单动态枚举目标 `scripts/*.py`；SKILL.md 仅链接目标内存在路径；目标目录缺失自动创建。
-- SKILL.md：红线增加 agent/ 生成约束；压缩至 48 行。
-- 五个机制脚本 docstring 的 resistance 引用补全目录层级。
-- rule_edit.md 适用边界修正；SKILL.md 惩罚阈值口径与 penalty.py 一致。
-- `self_update.py` compare/release 增加对过程工件目录剪枝。
-- `flowchart_editor.html`：连线端点按形状真实边界计算，箭头不再被节点遮挡；点选/双击命中改为形状感知且顶层优先；新建/双击节点自动聚焦改名；节点 ID 去重。
+---
+*最后更新：2026-10-17 | 新增「变更日志」规范*

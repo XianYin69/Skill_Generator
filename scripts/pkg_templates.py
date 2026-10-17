@@ -51,15 +51,15 @@ def add_local_deps(deps_path, skill_name, local_paths=None):
     """
     if not os.path.exists(deps_path):
         return False
-    
+
     with open(deps_path, "r", encoding="utf-8") as f:
         data = json.load(f)
-    
+
     dependencies = data.get("dependencies", [])
-    
+
     # 检查是否已有本地依赖
     local_exists = any(d.get("source_url", "").startswith("local://") for d in dependencies)
-    
+
     if not local_exists:
         # 添加本地技能依赖
         dependencies.append({
@@ -75,7 +75,7 @@ def add_local_deps(deps_path, skill_name, local_paths=None):
         with open(deps_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
         return True
-    
+
     return False
 
 def strip_local_urls(deps_path):
@@ -86,17 +86,29 @@ def strip_local_urls(deps_path):
     """
     if not os.path.exists(deps_path):
         return []
-    
+
     with open(deps_path, "r", encoding="utf-8") as f:
         data = json.load(f)
-    
+
     dependencies = data.get("dependencies", [])
     cleaned = [d for d in dependencies if not d.get("source_url", "").startswith("local://")]
-    
+
     # 如果有本地依赖被移除，更新文件
     if len(cleaned) != len(dependencies):
         data["dependencies"] = cleaned
         with open(deps_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-    
     return cleaned
+
+if __name__ == "__main__":
+    # 测试用例
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        pkg_dirs(td)
+        deps = os.path.join(td, "dependence", "deps.json")
+        add_local_deps(deps, "test-skill")
+        print("After add_local_deps:")
+        print(open(deps).read())
+        strip_local_urls(deps)
+        print("After strip_local_urls:")
+        print(open(deps).read())

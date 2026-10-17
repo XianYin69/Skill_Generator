@@ -24,3 +24,15 @@
 8. 执行 `python scripts/self_update.py release --tmp tmp --target <skill根目录>` 将 tmp/ 释放到目标 skill。
 9. 更新 CHANGELOG.md（记录本次变更）。
 10. 提交 git。
+
+## 三、变更日志规范
+
+**每次修改/新增/删除操作完成后，必须在根目录 `CHANGELOG.md` 记录变更**：
+
+- **记录内容**：日期、改动范围、涉及文件、违反后果。
+- `CHANGELOG.md` 本身也是变更产物，写入时需同步更新本条规范（本条除外）。
+- **审核流程**：`compare` 差异列明 → `release` 覆盖本体 → `git commit -m "docs: changelog update"`。
+- **约束红线**：变更日志不可缺失、不可跳过、不可事后补录（漏记视为违规）。
+
+---
+*最后更新：2026-10-17 | 新增「变更日志」规范*

@@ -13,12 +13,15 @@
 - [`check-links.py`](check-links.py)：悬空链接校验器（rule_edit.md 要求）。
 - [`create-tmp.ps1`](create-tmp.ps1) / [`create-tmp.sh`](create-tmp.sh)：建立 tmp 目录及初始结构（Win / macOS·Linux）。
 - 知识库工具（MIT 依赖）：[`knowledge_browser.py`](knowledge_browser.py)、[`knowledge_download.py`](knowledge_download.py)、[`knowledge_convert.py`](knowledge_convert.py)。
-- 自更新接口：[`self_update.py`](self_update.py)（report/compare/release/clean）。
+- 自更新接口：[`self_update.py`](self_update.py)（report/compare/release/clean/push）。
 - 网页流程图编辑器：[`flowchart_editor.py`](flowchart_editor.py) + [`flowchart_editor.html`](flowchart_editor.html)（需求模糊时复制到目标 skill 的 tmp 并启动）。
 - 五大机制脚本：[`garbage_collect.py`](garbage_collect.py)、[`context_compress.py`](context_compress.py)、[`logic_chain.py`](logic_chain.py)、[`process_chain.py`](process_chain.py)、[`penalty.py`](penalty.py)。
 - 沙盒机制脚本：[`sandbox.py`](sandbox.py)（固定路径 create/list/deliver/clean；交付与删除默认预览，`--yes` 执行）。
 - 提示词与标准目录生成：[`gen_agent_prompt.py`](gen_agent_prompt.py)（目标 skill 的 SKILL.md＋agent/ 四格式＋asset/＋dependence/ 目录与说明文件）。
 - 初始化许可写入：[`add-mit-license.py`](add-mit-license.py)（MIT `LICENSE` 全文模板；根目录＋tmp 镜像，默认预览、`--yes` 写盘、已有文件不覆盖）。
+- 标准目录模板：[`pkg_templates.py`](pkg_templates.py)（asset/dependence/planned_tasks 模板；双指向依赖支持）。
+- 计划任务初始化：[`init-planned-tasks.py`](init-planned-tasks.py)（planned_tasks/ README.md＋template.json）。
+- 依赖 lint：[`lint-deps.py`](lint-deps.py)（deps.json 每条必附 source_url 原始链接）。
 
 ## 运行约定
 
