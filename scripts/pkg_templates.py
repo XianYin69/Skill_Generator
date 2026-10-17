@@ -1,7 +1,7 @@
 """pkg_templates.py — 标准目录模板：asset/ ＋ dependence/（deps.json·source_url 必填）＋ planned_tasks/。
 新增：支持双指向依赖（远端 URL + 本地路径），推送时移除本地路径。
 """
-import json, os
+import json, os, datetime
 
 DEPS = json.dumps({"dependencies": []}, ensure_ascii=False, indent=2) + "\n"
 
@@ -100,5 +100,3 @@ def strip_local_urls(deps_path):
             json.dump(data, f, ensure_ascii=False, indent=2)
     
     return cleaned
-
-import datetime

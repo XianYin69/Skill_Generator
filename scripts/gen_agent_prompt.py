@@ -4,7 +4,7 @@
 """
 import argparse, os, sys, subprocess, json, datetime
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from pkg_templates import planned, pkg_dirs
+from pkg_templates import planned, pkg_dirs, add_local_deps, strip_local_urls
 
 def _p(t):
     s = os.path.join(t, "SKILL.md")
@@ -117,14 +117,23 @@ def gen(target, name=None, version="0.1.0", push_remote=False):
     pkg_dirs(target); planned(target)
     print("[OK] SKILL.md + agent/ + asset/ + dependence/ + planned_tasks/ 已生成（提示词一句话：使用 skill名 来完成用户请求）")
     
+    # 添加本地依赖
+    deps_path = os.path.join(target, "dependence", "deps.json")
+    add_local_deps(deps_path, n)
+    print(f"[OK] 已添加本地依赖: local://{n}")
+    
     # 执行 git 操作
     _init_git(target)
     
     if push_remote or _ask_push(target, n):
+        # 推送前移除本地依赖
+        strip_local_urls(deps_path)
+        _git(["add", "."], cwd=target)
+        _git(["commit", "-m", f"chore({n}): remove local deps before push"], cwd=target)
+        
         # 添加远端（如果未配置）
         rc, stdout, err = _git(["remote", "get-url", "origin"], cwd=target)
         if rc != 0:
-            # 尝试配置默认远端
             default_remote = "https://github.com/XianYin69/Skill_Generator.git"
             _git(["remote", "add", "origin", default_remote], cwd=target)
         
@@ -133,7 +142,10 @@ def gen(target, name=None, version="0.1.0", push_remote=False):
         if rc != 0:
             print(f"[WARN] git push 失败: {err}")
         else:
-            print(f"[OK] 已推送到远端 {default_remote}")
+            print(f"[OK] 已推送到远端")
+            # 恢复本地依赖
+            add_local_deps(deps_path, n)
+            print(f"[OK] 已恢复本地依赖: local://{n}")
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
