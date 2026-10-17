@@ -21,6 +21,17 @@
 
 收尾流程结束前：`compare` 列差异 → 修正 → `release` 覆盖到目标 skill → `clean` 删除 `tmp/`。详见 [收尾](../branch/流程/收尾/收尾.md)。
 
+## 整体审查通过后的推送
+
+整体审查通过后，通过 `self_update.py` 完成的变更应随功能分支一同推送到远端仓库：
+
+1. 修改完成后执行 `git add` 暂存变更。
+2. 执行 `python scripts/self_update.py release --tmp <tmp目录> --target <目标skill目录>` 将变更释放到目标 skill。
+3. 执行 `git commit -m "docs: update update interface"` 提交变更。
+4. 执行 `git push origin <功能分支>` 推送至远端。
+5. 合并到 `dev` 后，执行 `git push origin dev` 推送 dev 分支。
+6. 整体审查通过后，执行 `git merge dev` 并将 `main` 与 `dev` 一起推送：`git push origin main dev`。
+
 ## 运行约定
 
 1. 自更新不得改动 [`resistance/resistance.md`](../resistance/resistance.md) 中的约束红线。
