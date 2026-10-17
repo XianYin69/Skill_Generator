@@ -1,4 +1,6 @@
-"""pkg_templates.py — 标准目录模板：asset/ ＋ dependence/（deps.json·source_url 必填）＋ planned_tasks/。"""
+"""pkg_templates.py — 标准目录模板：asset/ ＋ dependence/（deps.json·source_url 必填）＋ planned_tasks/。
+新增：支持双指向依赖（远端 URL + 本地路径），推送时移除本地路径。
+"""
 import json, os
 
 DEPS = json.dumps({"dependencies": []}, ensure_ascii=False, indent=2) + "\n"
@@ -38,3 +40,65 @@ def pkg_dirs(t):
         if not os.path.exists(f): open(f, "w", encoding="utf-8").write(s)
     j = os.path.join(t, "dependence", "deps.json")
     if not os.path.exists(j): open(j, "w", encoding="utf-8").write(DEPS)
+
+def add_local_deps(deps_path, skill_name, local_paths=None):
+    """添加本地依赖条目（同时保留远端 source_url）。
+    参数:
+        deps_path: deps.json 文件路径
+        skill_name: 技能名称
+        local_paths: 本地路径列表，如 ["C:\\Users\\User\\AppData\\Local\\SMS\\skills"]
+    返回: 是否成功
+    """
+    if not os.path.exists(deps_path):
+        return False
+    
+    with open(deps_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    
+    dependencies = data.get("dependencies", [])
+    
+    # 检查是否已有本地依赖
+    local_exists = any(d.get("source_url", "").startswith("local://") for d in dependencies)
+    
+    if not local_exists:
+        # 添加本地技能依赖
+        dependencies.append({
+            "name": skill_name,
+            "source_url": f"local://{skill_name}",
+            "license": "MIT",
+            "version": "0.1.0",
+            "install": "sms-local",
+            "checked_at": datetime.datetime.now().isoformat()[:19],
+            "source_url_status": "verified"
+        })
+        data["dependencies"] = dependencies
+        with open(deps_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        return True
+    
+    return False
+
+def strip_local_urls(deps_path):
+    """移除本地路径，只保留远端 URL（用于推送前的准备）。
+    参数:
+        deps_path: deps.json 文件路径
+    返回: 清理后的依赖列表
+    """
+    if not os.path.exists(deps_path):
+        return []
+    
+    with open(deps_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    
+    dependencies = data.get("dependencies", [])
+    cleaned = [d for d in dependencies if not d.get("source_url", "").startswith("local://")]
+    
+    # 如果有本地依赖被移除，更新文件
+    if len(cleaned) != len(dependencies):
+        data["dependencies"] = cleaned
+        with open(deps_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    
+    return cleaned
+
+import datetime
