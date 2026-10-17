@@ -1,0 +1,6 @@
+tmp/
+.idea/
+.vscode/
+.kilo/
+__pycache__/
+*.pyc
