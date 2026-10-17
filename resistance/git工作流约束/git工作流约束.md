@@ -20,6 +20,8 @@
     - 宿主本体仓可见性为 **PUBLIC**，其 `.gitignore` 必须忽略 `private/` 内容、仅保留 `private/.gitkeep`；附属内容一旦出现在本体公开仓即视为泄漏（`E_LEAK_TO_PUBLIC`）；
     - 可见性由「仓库属性 + `register.json` 的 `visibility/parent/publish` + 脚本校验」承载，**禁止在 SKILL.md frontmatter 自造 `visibility` 字段**（`gen_agent_prompt.py` 只认 `name/description/license/metadata`，重生成会被抹掉）；
     - 注册（`register.json`）≠ 发布（进私有伴生仓）：两者都要做，只注册不发布视为未完成。
+12. **创建的技能必须上传到远端**：`gen_agent_prompt.py` 收尾阶段**必须执行 `git push origin main dev`** 将创建的技能推送至远端，不得仅保留本地提交；推送前仍需遵守第 9 条（询问用户确认）与第 10 条（可见性判定）。
+13. **依赖同时指向远端与本地**：`dependence/deps.json` 每条依赖除保留 `source_url`（上游原始链接）外，**必须同时记录技能包在远端/GitHub 的分发位置与本地可落位的路径**（本地用 `local://<skill-id>` 占位，远端用实际 URL）；SMS 安装时同检同净化，离线环境可溯源。
 
 ## 违规后果
 
@@ -30,7 +32,9 @@
 - 未 init 即操作：git 命令失效，提交/合并无法执行；
 - 未确认即推送：未经用户同意将提交发布到远端；
 - 违规/涉密仓库设为 PUBLIC：侵权与泄密扩散，不可撤回；
-- 附属技能不入库或误推本体公开仓：附属能力丢失不可回滚，或私有内容外泄（`E_LEAK_TO_PUBLIC`），均不可撤回。
+- 附属技能不入库或误推本体公开仓：附属能力丢失不可回滚，或私有内容外泄（`E_LEAK_TO_PUBLIC`），均不可撤回；
+- **创建的技能未推送到远端**：技能仅存在于本地，SMS 无法通过远程仓库分发与安装，违反第 12 条；
+- **依赖未镜像远端+本地**：离线场景无法定位依赖来源，违反第 13 条。
 
 ## 相关
 

@@ -1,0 +1,4 @@
+{"from": "初始化", "to": "需求确认", "why": "双链辩论通过，约束已写入tmp/resistance/"}
+{"from": "需求确认", "to": "双链辩论通过", "why": "新增约束已写入tmp/resistance/与tmp/SKILL.md红线"}
+{"from": "双链辩论通过", "to": "整体审查通过", "why": "新增约束12-13已补充红线与违规后果，九项审查标准覆盖"}
+{"from": "整体审查通过", "to": "release生效", "why": "compare diff=2(SKILL.md+约束)，--yes release覆盖"}
