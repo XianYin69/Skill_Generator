@@ -1,13 +1,3 @@
 {
-  "dependencies": [
-    {
-      "name": "sms-dev-test-pack",
-      "source_url": "local://sms-dev-test-pack",
-      "license": "MIT",
-      "version": "0.1.0",
-      "install": "sms-local",
-      "checked_at": "2026-10-19T10:42:53",
-      "source_url_status": "verified"
-    }
-  ]
+  "dependencies": []
 }
